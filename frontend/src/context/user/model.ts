@@ -1,8 +1,9 @@
 import { createEffect, createEvent, createStore } from "effector";
 import { createForm } from "effector-react-form";
 import api from "../../scripts/api";
+import { UserDescriptor } from "./types";
 
-export const $user = createStore<{ name: string, id: string, user?: boolean, admin?: boolean, email?: string, phone?: string } | null>(null);
+export const $user = createStore<UserDescriptor | null>(null);
 
 // register
 export const registrationForm = createForm();

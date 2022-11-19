@@ -16,3 +16,8 @@
     width: 100%;
     height: 40px;
 }
+
+.create-lot-btn[disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+}

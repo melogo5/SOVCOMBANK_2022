@@ -1,4 +1,4 @@
-const root = "/api/market/";
+const root = "/api/markets/";
 
 const ACTIVE = 'ae2e0148-029b-4206-8676-eb764a24bcb8';
 const HOLD = 'be2e0148-029b-4206-8676-eb764a24bcb8';

@@ -7,6 +7,7 @@ import migrations from "./migrations/index.js";
 
 import users from './api/users.js';
 import cards from './api/cards.js';
+import markets from './api/markets.js';
 
 /**
  * @type {import('fastify').FastifyInstance} Instance of Fastify
@@ -24,6 +25,7 @@ fastify.register(fastifyPostgres, config.database)
 
 fastify.register(users);
 fastify.register(cards);
+fastify.register(markets);
 
 const start = async () => {
   try {

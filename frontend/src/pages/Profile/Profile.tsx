@@ -1,29 +1,18 @@
-import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { useEvent, useUnit } from "effector-react"; // selector
+import React from "react";
 import { Button, Dropdown, Typography, message, Space, Tooltip } from 'antd';
 import "./Profile.css";
-import { $user } from "../../context/user"; // store
+import useUserExist from "../../hook/useUserExist";
 
 export const Profile: React.FC = () => {
-    const navigate = useNavigate();
-    const user = useUnit($user);
+  const user = useUserExist();
+  const { Text, Title } = Typography;
 
-    const { Text, Title } = Typography;1
-
-    useEffect(() => {
-        if (!user) navigate("/login");
-    }, []);
-
-    if (!user) {
-        return null;
-    };
-
-    return (
-        <div className="profile-wrapper">
-            <Title>{user.name}</Title>
-            <Title level={3}>{user.phone}</Title>
-            <Title level={3}>{user.email}</Title>
-        </div>
-    );
+  if (!user) return null;
+  return (
+    <div className="profile-wrapper">
+      <Title>{user.name}</Title>
+      <Title level={3}>{user.phone}</Title>
+      <Title level={3}>{user.email}</Title>
+    </div>
+  );
 }

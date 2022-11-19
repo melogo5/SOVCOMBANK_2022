@@ -1,3 +1,3 @@
-// import "./init";
+import "./init";
 
 export * from "./model";

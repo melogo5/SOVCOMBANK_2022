@@ -1,51 +1,45 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import type { MenuProps } from 'antd';
-import { Button, Dropdown, Typography, message, Space, Tooltip } from 'antd';
+import { useUnit } from "effector-react";
+import { Button, Select, Typography, message, Space, Tooltip } from 'antd';
 
-import { DownOutlined, UserOutlined } from '@ant-design/icons';
+// import { DownOutlined, UserOutlined } from '@ant-design/icons';
 
 import "./Market.css";
 import { BoxShadow } from "../../components";
-
-const variants = [
-  "RUB/EUR",
-  "RUB/THB",
-  "RUB/VND"
-];
+import useUserExist from "../../hook/useUserExist";
+import { $markets, loadMarketsFx, exchangeSelect, $exchange } from "../../context/market";
+import Exchange from "../Exchange/Exchange";
 
 export const Market: React.FC = () => {
+  const user = useUserExist();
   const navigate = useNavigate();
+  const [markets, exchange] = useUnit([$markets, $exchange]);
 
-  const items: MenuProps['items'] = variants.map(e => ({
-    label: e,
-    key: e
-  }));
-
-  const handleMenuClick = () => {
-
-  }
-
-  const menuProps = {
-    items,
-    onClick: handleMenuClick,
-  };
+  useEffect(() => { loadMarketsFx() }, []);
 
   return (
     <div className="market-wrapper">
       <BoxShadow>
         <div className="currency-pair-choice">
-          <Dropdown menu={menuProps}>
-            <Button size='large'>
-              <Space>
-                Выберите пару
-                <DownOutlined />
-              </Space>
-            </Button>
-          </Dropdown>
+          <Select
+            size='large'
+            placeholder="Выберите валютную пару"
+            options={markets}
+            onChange={exchangeSelect}
+          />
         </div>
-        <Button size='large' className="create-lot-btn" onClick={() => navigate("/lotPlacement")}>Создать лот</Button>
+        <Button
+          size='large'
+          className="create-lot-btn"
+          onClick={() => navigate("/lotPlacement")}
+          disabled={!exchange}
+        >
+          Создать лот
+        </Button>
       </BoxShadow>
+
+      <Exchange />
     </div>
   );
 }
