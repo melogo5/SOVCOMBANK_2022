@@ -1,0 +1,19 @@
+.flex-container {
+    display: flex;
+}
+.cvc {
+    width: 100px;
+    margin-left: 20px;
+}
+.valid-thru {
+    width: 100px;
+}
+.page-cardLink {
+    padding: 10px 30px;
+    display: flex;
+    flex-direction: column;
+}
+.page-cardLink-submitBtn {
+    margin-top: 10px;
+    align-self: end;
+}

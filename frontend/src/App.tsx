@@ -4,13 +4,17 @@ import Login from './pages/Login/Login';
 
 import './App.css';
 import Registration from './pages/Registration/Registration';
+import CardLink from './pages/CardLink/CardLink';
+import { ProcessReview } from './pages/ProcessReview/ProcessReview';
 
 const App: FC = () => {
 
   return (
     <div className="App">
-      {/* <Login /> */}
+      <CardLink />
+      <Login />
       <Registration />
+      <ProcessReview />
     </div>
   );
 }
