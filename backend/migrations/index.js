@@ -21,8 +21,15 @@ export default async function migrations(client) {
     console.log('apply migration ', rest[i]);
     const obj = await import('./' + rest[i] + '.js');
     const migration = obj.default;
-    migration(client);
+    try {
+      await migration(client);
+    } catch (e) {
+      console.log("migration error", i, rest[i]);
+      // console.error(e);
+      throw e;
+    }
   }
+  client.end();
 
   console.log("новые миграции применены");
 }

@@ -4,10 +4,11 @@ export default {
     port: 8080
   },
   database: {
-    user: 'postgress',
-    host: 'localhost',
-    database: 'sovcombank',
-    password: 'password',
-    port: 5432
+    // user: 'postgress',
+    // host: 'localhost',
+    // database: 'sovcombank',
+    // password: 'password',
+    // port: 5432
+    connectionString: 'postgres://postgres@localhost:5432/sovcombank'
   }
 };

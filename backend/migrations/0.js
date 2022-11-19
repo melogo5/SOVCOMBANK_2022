@@ -14,11 +14,12 @@ export default async function migration(client, index = 0) {
     SET default_tablespace = '';
     SET default_table_access_method = heap;
 
-    CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+    DROP EXTENSION IF EXISTS "uuid-ossp";
+    CREATE EXTENSION IF NOT EXISTS "uuid-ossp" SCHEMA public;
     CREATE TABLE public.migrations (id text, PRIMARY KEY ("id"));
   `
 
   await client.query(query);
-  await client.query(`INSERT INTO public.migrations (id) VALUES ('${index}');`);
-  console.log`migration ${index} created`;
+  await client.query(`INSERT INTO public.migrations (id) VALUES ('${index}')`);
+  console.log(`migration ${index} created`);
 }

@@ -27,9 +27,14 @@ fastify.register(cards);
 
 const start = async () => {
   try {
-    await fastify.listen(config.backend)
+    await fastify.ready();
+    const client = await fastify.pg.connect();
+    await migrations(client);
+
+    await fastify.listen(config.backend);
   } catch (err) {
-    fastify.log.error(err);
+    // fastify.log.error(err);
+    console.error(err);
     process.exit(1)
   }
 }
