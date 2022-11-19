@@ -11,6 +11,7 @@ import { Account } from './pages/Account/Account';
 import { NavMenu } from './components';
 import { LotPlacement } from './pages/LotPlacement/LotPlacement';
 import { Market } from './pages/Market/Market';
+import { Profile } from './pages/Profile/Profile';
 
 const App: FC = () => {
   const navigate = useNavigate();
@@ -31,6 +32,7 @@ const App: FC = () => {
               <p><Link to={"/dashboard"}>Account</Link></p>
               <p><Link to={"/lotPlacement"}>Lot placement</Link></p>
               <p><Link to={"/market"}>Market</Link></p>
+              <p><Link to={"/profile"}>Profile</Link></p>
 
               {/* {user !== null && (
                 <Navigate to="/dashboard" replace={true} />
@@ -45,6 +47,7 @@ const App: FC = () => {
           <Route path="/cards/append" element={<CardLink />} />
           <Route path="/dashboard" element={<Account />} />
           <Route path="/market" element={<Market />} />
+          <Route path="/profile" element={<Profile />} />
         </Routes>
     </div>
   );
