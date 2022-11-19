@@ -1,0 +1,61 @@
+.account-amount {
+    margin-top: 15px !important;
+    margin-bottom: 10px !important;
+}
+
+.account-wrapper {
+    padding: 10px;
+}
+
+.card-header-settings {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-settings-icon {
+    font-size: 32px;
+    color: rebeccapurple !important;
+}
+
+.card-header-number {
+    margin: 0 !important;
+}
+
+.account-card-actions {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.account-card-actions-btn {
+    width: 250px;
+    margin: 5px;
+    border-radius: 5px !important;
+}
+
+.card-btn-in {
+    background-color: rgb(8, 155, 8) !important;
+    color: white !important;
+    font-size: 16px !important;
+    height: 40px !important;
+}
+
+.card-btn-out {
+    background-color: #08c !important;
+    color: white !important;
+    font-size: 16px !important;
+    height: 40px !important;
+}
+
+.account-change-card {
+    display: flex;
+    justify-content: center;
+}
+
+.account-currency-switcher {
+    width: 100% !important;
+    margin-top: 100px;
+    
+}

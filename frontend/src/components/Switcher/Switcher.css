@@ -1,0 +1,16 @@
+.switcher-wrapper {
+    display: flex;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.switcher-option {
+    padding: 5px;
+    text-align: center;
+    font-size: 18px;
+}
+
+.switcher-option-active {
+    background-color: rebeccapurple;
+    color: white;
+}
