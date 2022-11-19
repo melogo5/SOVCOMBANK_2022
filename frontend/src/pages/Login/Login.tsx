@@ -14,22 +14,36 @@ const Login: FC = () => {
 
     const user = useUnit($user);
 
-    useEffect(() => console.log({user}), [user]);
+    useEffect(() => console.log({ user }), [user]);
 
     return (
         <div className="page-login">
-            <InputField controller={controller({ name: "login" })} label={"Login"} />
+            <div className="formLoginWrapper">
+                <InputField
+                    inputClassName="login-name-field"
+                    lableClassName="login-label"
+                    controller={controller({ name: "login" })}
+                    label={"Вход"}
+                />
 
-            <Input.Password />
+                <Input.Password className="login-password-field" />
 
-            <Checkbox>Remember me</Checkbox>
+                <div className="login-remember-block">
+                    <Checkbox>Запомнить меня</Checkbox>
 
-            <Button onClick={loginFormSubmit} type="primary" htmlType="submit">
-                Submit
-            </Button>
+                    <Button onClick={loginFormSubmit} type="primary" htmlType="submit">
+                        Войти
+                    </Button>
+                </div>
 
 
-            <pre>{JSON.stringify(user, null, 2)}</pre>
+                <Button onClick={() => { }} type="default" htmlType="submit">
+                    Зарегестрироваться
+                </Button>
+
+            </div>
+
+            {/* <pre>{JSON.stringify(user, null, 2)}</pre> */}
         </div>
     );
 };
