@@ -9,6 +9,8 @@ import CardLink from './pages/CardLink/CardLink';
 import { ProcessReview } from './pages/ProcessReview/ProcessReview';
 import { Account } from './pages/Account/Account';
 import { NavMenu } from './components';
+import { LotPlacement } from './pages/LotPlacement/LotPlacement';
+import { Market } from './pages/Market/Market';
 
 const App: FC = () => {
   const navigate = useNavigate();
@@ -27,6 +29,8 @@ const App: FC = () => {
               <p><Link to={"/cards/append"}>AppendCard</Link></p>
               <p><Link to={"/review"}>Review</Link></p>
               <p><Link to={"/dashboard"}>Account</Link></p>
+              <p><Link to={"/lotPlacement"}>Lot placement</Link></p>
+              <p><Link to={"/market"}>Market</Link></p>
 
               {/* {user !== null && (
                 <Navigate to="/dashboard" replace={true} />
@@ -35,10 +39,12 @@ const App: FC = () => {
           )} />
 
           <Route path="/login" element={<Login />} />
+          <Route path="/lotPlacement" element={<LotPlacement />} />
           <Route path="/register" element={<Registration />} />
           <Route path="/review" element={<ProcessReview />} />
           <Route path="/cards/append" element={<CardLink />} />
           <Route path="/dashboard" element={<Account />} />
+          <Route path="/market" element={<Market />} />
         </Routes>
     </div>
   );

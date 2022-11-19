@@ -1,0 +1,25 @@
+.lot-placement-wrapper {
+    padding: 10px;
+}
+
+.lot-placement-block-title {
+    text-align: center;
+}
+
+.lot-placement-swap-btn-container {
+    display: flex;
+    justify-content: center;
+    margin: 15px;
+}
+
+.lot-placement-swap-btn {
+    
+}
+
+.lot-placement-create {
+    background-color: rgb(23, 138, 23) !important;
+    color: white !important;
+    width: 100%;
+    height: 40px !important;
+    border-radius: 5px !important;
+}

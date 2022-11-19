@@ -1,0 +1,18 @@
+.market-wrapper {
+    padding: 10px;
+}
+
+.currency-pair-choice {
+    display: flex;
+    gap: 5px;
+    height: 50px;
+    align-items: center;
+}
+
+.create-lot-btn {
+    background-color: rgb(23, 138, 23) !important;
+    color: white !important;
+    margin-top: 15px;
+    width: 100%;
+    height: 40px;
+}

@@ -14,8 +14,8 @@ export const NavMenu: React.FC = () => {
                     <WalletOutlined className="menu-icon" />
                 </div>
             </Link>
-            <Link to={"/"}>
-                <div className={`menu-icon-wrapper ${location.pathname === "/" ? "menu-icon-wrapper-active" : ""}`}>
+            <Link to={"/market"}>
+                <div className={`menu-icon-wrapper ${location.pathname === "/market" ? "menu-icon-wrapper-active" : ""}`}>
                     <TransactionOutlined className="menu-icon" />
                 </div>
             </Link>
