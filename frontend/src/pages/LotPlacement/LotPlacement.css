@@ -13,7 +13,8 @@
 }
 
 .lot-placement-swap-btn {
-    
+    background-color: rebeccapurple !important;
+    color: white !important;
 }
 
 .lot-placement-create {
