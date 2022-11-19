@@ -9,6 +9,6 @@ export default {
     // database: 'sovcombank',
     // password: 'password',
     // port: 5432
-    connectionString: 'postgres://postgres:123@localhost:5432/sovcombank'
+    connectionString: 'postgres://postgres@localhost:5432/sovcombank'
   }
 };
