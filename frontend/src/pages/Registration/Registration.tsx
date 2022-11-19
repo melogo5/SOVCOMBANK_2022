@@ -8,6 +8,7 @@ import { registrationForm, registrationFormSubmit, $user } from './model';
 import "./Registration.css";
 import { InputField } from '../../form/input';
 import { useEffect } from 'react';
+import { PasswordInputField } from '../../form/passwordInput';
 
 const Registration: FC = () => {
     const { controller, handleSubmit } = useForm({ form: registrationForm });
@@ -20,15 +21,15 @@ const Registration: FC = () => {
         <div className="page-registration">
             <div className="formRegistrationWrapper">
                 <InputField
-                    controller={controller({ name: "registration" })}
+                    controller={controller({ name: "name" })}
                     label={"Регистрация"}
                     lableClassName="label-registration"
                     inputClassName="registration-name-field"
                     placeholder="Иван Иванов"
                 />
 
-                <Input.Password className="registration-password-field" />
-                <Input.Password className="registration-password-field" />
+                <PasswordInputField className="registration-password-field" controller={controller({ name: "password" })} />
+                <PasswordInputField className="registration-password-field" controller={controller({ name: "passwordConfirm" })} />
 
                 <div className="registration-buttons">
                     <Button onClick={registrationFormSubmit} type="primary" htmlType="submit">
