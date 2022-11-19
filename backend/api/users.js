@@ -38,8 +38,9 @@ async function routes(fastify, options) {
       text: "SELECT * FROM users.list"
     }
 
+    // @ts-ignore
     const result = await fastify.pg.query(query);
-    return { status: 'success', data: result.rows};
+    return { status: 'success', data: result.rows };
   });
 
   fastify.post(root + "register", async (request, reply) => {
@@ -64,8 +65,10 @@ async function routes(fastify, options) {
   });
 
   fastify.post(root + "review", async (request, reply) => {
+    // @ts-ignore
     const { id, type } = JSON.parse(request.body);
     let query;
+
     if (type === 'approve') {
       query = {
         name: 'users.approve',
@@ -75,11 +78,23 @@ async function routes(fastify, options) {
     } else {
       query = {
         name: 'users.decline',
-        text: `DELETE FROM users.list WHERE id = ${id}`
+        text: 'DELETE FROM users.list WHERE id = $1',
+        values: [id]
       }
     }
-    const result = await fastify.pg.query(query);
-    return { status: 'success', data: result.rows};
+
+    // @ts-ignore
+    await fastify.pg.query(query);
+    // return { status: 'success', data: result.rows};
+
+    const list = {
+      name: 'users.list',
+      text: "SELECT * FROM users.list"
+    }
+
+    // @ts-ignore
+    const result = await fastify.pg.query(list);
+    return { status: 'success', data: result.rows };
   });
 }
 

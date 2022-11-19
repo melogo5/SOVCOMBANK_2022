@@ -1,31 +1,18 @@
 import React, { FC } from 'react';
-import { useNavigate, useLocation } from "react-router-dom";
-import { useUnit } from "effector-react";
 import { Button } from 'antd';
 import { useForm } from 'effector-react-form';
-
+import { useNavigate } from "react-router-dom";
 import { registrationForm, registrationFormSubmit, $user } from '../../context/user';
-
+import useLoginNavigate from "../../hook/useLoginNavigate";
 import "./Registration.css";
 import { InputField } from '../../form/input';
-import { useEffect } from 'react';
 import { PasswordInputField } from '../../form/passwordInput';
 import { CenterContent } from '../../components';
 
 const Registration: FC = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
-
   const { controller } = useForm({ form: registrationForm });
-  const user = useUnit($user);
-
-  useEffect(() => {
-    console.log({ user });
-
-    if (!user) return;
-    console.log(location.pathname);
-    if (!user.user) navigate("/review");
-}, [user]);
+  const navigate = useNavigate();
+  useLoginNavigate();
 
   return (
     <CenterContent taCenter>
