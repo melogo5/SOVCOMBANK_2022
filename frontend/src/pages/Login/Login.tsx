@@ -20,7 +20,10 @@ const Login: FC = () => {
   useEffect(() => {
     console.log({ user });
     if (!user) return;
-
+    if (user.admin) {
+      navigate("/admin-panel");
+      return;
+    }
     if (!user.user) navigate("/review");
   }, [user]);
 

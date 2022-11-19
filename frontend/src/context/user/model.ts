@@ -16,3 +16,10 @@ export const loginForm = createForm();
 export const loginFormSubmit = createEvent<any>();
 export const loginFx = createEffect((values: any) => api("users/login", values));
 
+// review
+export const userReviewSubmit = createEvent<any>();
+export const userReviewFx = createEffect((values: any) => api("users/review", values));
+
+// getUsers
+export const getUsers = createEvent<any>();
+export const getUsersFx = createEffect((values: any) => api("users/review", values));
