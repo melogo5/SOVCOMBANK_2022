@@ -42,7 +42,7 @@ const Login: FC = () => {
 
 
                 <Button onClick={() => { }} type="default" htmlType="submit">
-                    Зарегестрироваться
+                    Зарегистрироваться
                 </Button>
 
             </div>
