@@ -19,15 +19,26 @@ const Registration: FC = () => {
     return (
         <div className="page-registration">
             <div className="formRegistrationWrapper">
-                <InputField controller={controller({ name: "registration" })} label={"Registration"} />
+                <InputField
+                    controller={controller({ name: "registration" })}
+                    label={"Регистрация"}
+                    lableClassName="label-registration"
+                    inputClassName="registration-name-field"
+                    placeholder="Иван Иванов"
+                />
 
-                <Input.Password />
+                <Input.Password className="registration-password-field" />
+                <Input.Password className="registration-password-field" />
 
-                <Checkbox>Remember me</Checkbox>
+                <div className="registration-buttons">
+                    <Button onClick={registrationFormSubmit} type="primary" htmlType="submit">
+                        Зарегистрироваться
+                    </Button>
 
-                <Button onClick={registrationFormSubmit} type="primary" htmlType="submit">
-                    Submit
-                </Button>
+                    <Button onClick={registrationFormSubmit} type="default" htmlType="submit">
+                        Войти
+                    </Button>
+                </div>
 
             </div>
 
