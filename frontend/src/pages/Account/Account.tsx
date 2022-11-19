@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from "react";
 import { Button, Typography, Radio } from 'antd';
+import { useNavigate } from "react-router-dom";
 import type { RadioChangeEvent } from 'antd';
 
 import { SettingOutlined } from "@ant-design/icons";
@@ -17,6 +18,7 @@ const CURRENCIES = {
 export const Account: React.FC = () => {
     const { Text, Title } = Typography;
     const [value, setValue] = useState('RUB');
+    const navigate = useNavigate();
 
     //const data =
     //запрос за данными
@@ -29,6 +31,7 @@ export const Account: React.FC = () => {
         secondTotal: 1890
     }
 
+    
     const total = useMemo(() => {
         return value === "RUB" ? data.total : data.secondTotal;
     }, [value]);
@@ -66,12 +69,13 @@ export const Account: React.FC = () => {
                     <SettingOutlined className="card-settings-icon" />
                 </div>
                 <div className="account-card-actions">
-                    <Button className="account-card-actions-btn card-btn-in">Пополнить</Button>
-                    <Button className="account-card-actions-btn card-btn-out">Вывести</Button>
+                    <Button className="account-card-actions-btn card-btn-in">Пополнить с этой карты</Button>
+                    <Button className="account-card-actions-btn card-btn-out">Вывести на эту карту</Button>
                 </div>
             </BoxShadow>
             <BoxShadow className="account-change-card">
-                <Button className="account-card-actions-btn">Сменить карту</Button>
+                <Button className="account-card-actions-btn">Выбрать другую карту</Button>
+                <Button onClick={() => navigate("/cards/append")} className="account-card-actions-btn">Добавить новую карту</Button>
             </BoxShadow>
         </div>
     );

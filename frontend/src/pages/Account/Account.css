@@ -52,6 +52,9 @@
 .account-change-card {
     display: flex;
     justify-content: center;
+    margin-top: 15px;
+    flex-direction: column;
+    align-items: center;
 }
 
 .account-currency-switcher {
