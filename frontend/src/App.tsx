@@ -8,12 +8,15 @@ import Registration from './pages/Registration/Registration';
 import CardLink from './pages/CardLink/CardLink';
 import { ProcessReview } from './pages/ProcessReview/ProcessReview';
 import { Account } from './pages/Account/Account';
+import { NavMenu } from './components';
 
 const App: FC = () => {
 
   return (
     <div className="App">
       <BrowserRouter>
+        <NavMenu />
+
         <Routes>
           <Route path="*" element={(
             <>

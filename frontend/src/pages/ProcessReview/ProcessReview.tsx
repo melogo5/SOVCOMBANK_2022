@@ -10,11 +10,13 @@ export const ProcessReview: React.FC = () => {
   const { Text, Title } = Typography;
   const user = useUnit($user);
 
+  console.log(user);
+
   return (
     <CenterContent taCenter>
       <div>
-        {user !== null && <span>Здравствуйте, {user.name}!</span>}
-
+        {user !== null && user.name &&<Text>Здравствуйте, {user.name}!</Text>}
+        <br/>
         <FileSyncOutlined className="process-review-icon" />
         <Title>Проверяем данные</Title>
         <Text>Подождите пока мы проверим ваши данные и документы</Text>
