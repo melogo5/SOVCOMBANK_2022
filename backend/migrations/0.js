@@ -1,4 +1,4 @@
-export default async function migration(client) {
+export default async function migration(client, index = 0) {
   const query = `
     SET statement_timeout = 0;
     SET lock_timeout = 0;
@@ -14,10 +14,11 @@ export default async function migration(client) {
     SET default_tablespace = '';
     SET default_table_access_method = heap;
 
-    CREATE TABLE public.migrations (id text);
+    CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+    CREATE TABLE public.migrations (id text, PRIMARY KEY ("id"));
   `
 
   await client.query(query);
-  await client.query(`INSERT INTO public.migrations (id) VALUES ('0');`);
-  console.log`migration 0 created`;
+  await client.query(`INSERT INTO public.migrations (id) VALUES ('${index}');`);
+  console.log`migration ${index} created`;
 }

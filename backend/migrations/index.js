@@ -1,4 +1,4 @@
-import {promises as fs} from "fs";
+import { promises as fs } from "fs";
 
 export default async function migrations(client) {
   const files = await fs.readdir("./migrations");
