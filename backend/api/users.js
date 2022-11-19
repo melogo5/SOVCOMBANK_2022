@@ -50,7 +50,7 @@ async function routes(fastify, options) {
     const result = await fastify.pg.query(query);
     const id = result.rows[0].id;
 
-    return { status: "success", id, name, user: false, admin: false };
+    return { status: "success", id, name, user: true, admin: false };
   });
 
   fastify.post(root + "review", async (request, reply) => {

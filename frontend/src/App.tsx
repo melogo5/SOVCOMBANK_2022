@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import { BrowserRouter, Routes, Route, Link, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link, useNavigate } from "react-router-dom";
 
 import './App.css';
 import Login from './pages/Login/Login';
@@ -11,12 +11,14 @@ import { Account } from './pages/Account/Account';
 import { NavMenu } from './components';
 
 const App: FC = () => {
-
+  const navigate = useNavigate();
   return (
     <div className="App">
-      <BrowserRouter>
+      <div>
+        Тут должна быть шапка
+        <button onClick={() => navigate(-1)}>Назад</button>
+      </div>
         <NavMenu />
-
         <Routes>
           <Route path="*" element={(
             <>
@@ -38,7 +40,6 @@ const App: FC = () => {
           <Route path="/cards/append" element={<CardLink />} />
           <Route path="/dashboard" element={<Account />} />
         </Routes>
-      </BrowserRouter>
     </div>
   );
 }

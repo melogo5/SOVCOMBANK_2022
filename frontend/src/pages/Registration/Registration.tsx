@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useUnit } from "effector-react";
 import { Button } from 'antd';
 import { useForm } from 'effector-react-form';
@@ -14,6 +14,7 @@ import { CenterContent } from '../../components';
 
 const Registration: FC = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const { controller } = useForm({ form: registrationForm });
   const user = useUnit($user);
@@ -22,6 +23,7 @@ const Registration: FC = () => {
     console.log({ user });
 
     if (!user) return;
+    console.log(location.pathname);
     if (!user.user) navigate("/review");
 }, [user]);
 

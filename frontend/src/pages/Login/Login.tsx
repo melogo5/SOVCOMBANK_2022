@@ -1,5 +1,5 @@
 import React, { FC, useEffect } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useUnit } from "effector-react";
 import { Button, Checkbox } from 'antd';
 import { useForm } from 'effector-react-form';
@@ -13,6 +13,7 @@ import { CenterContent } from '../../components';
 
 const Login: FC = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { controller } = useForm({ form: loginForm });
 
   const user = useUnit($user);
