@@ -1,4 +1,5 @@
 import Fastify from 'fastify';
+import fastifyPostgres from '@fastify/postgres';
 import config from './config.js';
 
 // БД
@@ -18,6 +19,8 @@ fastify.addHook("preHandler", async (request, reply) => {
     "Content-Type": "application/json",
   });
 });
+
+fastify.register(fastifyPostgres, config.database)
 
 fastify.register(users);
 fastify.register(cards);
