@@ -9,6 +9,7 @@ import "./Login.css";
 import { InputField } from '../../form/input';
 import { useEffect } from 'react';
 import { PasswordInputField } from '../../form/passwordInput';
+import { CenterContent } from '../../components';
 
 const Login: FC = () => {
     const { controller, handleSubmit } = useForm({ form: loginForm });
@@ -18,7 +19,8 @@ const Login: FC = () => {
     useEffect(() => console.log({ user }), [user]);
 
     return (
-        <div className="page-login">
+        // <div className="page-login">
+        <CenterContent taCenter>
             <div className="formLoginWrapper">
                 <InputField
                     inputClassName="login-name-field"
@@ -46,7 +48,8 @@ const Login: FC = () => {
             </div>
 
             {/* <pre>{JSON.stringify(user, null, 2)}</pre> */}
-        </div>
+        </CenterContent>
+        /* </div> */ 
     );
 };
 

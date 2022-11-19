@@ -9,6 +9,7 @@ import "./Registration.css";
 import { InputField } from '../../form/input';
 import { useEffect } from 'react';
 import { PasswordInputField } from '../../form/passwordInput';
+import { CenterContent } from '../../components';
 
 const Registration: FC = () => {
     const { controller, handleSubmit } = useForm({ form: registrationForm });
@@ -18,7 +19,8 @@ const Registration: FC = () => {
     useEffect(() => console.log({ user }), [user]);
 
     return (
-        <div className="page-registration">
+        // <div className="page-registration">
+        <CenterContent taCenter>
             <div className="formRegistrationWrapper">
                 <InputField
                     controller={controller({ name: "name" })}
@@ -42,9 +44,10 @@ const Registration: FC = () => {
                 </div>
 
             </div>
+        </CenterContent>
 
-            {/* <pre>{JSON.stringify(user, null, 2)}</pre> */}
-        </div>
+            /* <pre>{JSON.stringify(user, null, 2)}</pre> */ 
+        // </div>
     );
 };
 
