@@ -8,6 +8,7 @@ import { loginForm, loginFormSubmit, $user } from './model';
 import "./Login.css";
 import { InputField } from '../../form/input';
 import { useEffect } from 'react';
+import { PasswordInputField } from '../../form/passwordInput';
 
 const Login: FC = () => {
     const { controller, handleSubmit } = useForm({ form: loginForm });
@@ -24,9 +25,10 @@ const Login: FC = () => {
                     lableClassName="login-label"
                     controller={controller({ name: "login" })}
                     label={"Вход"}
+                    placeholder="Иван"
                 />
 
-                <Input.Password className="login-password-field" />
+                <PasswordInputField controller={controller({ name: "password" })} className="login-password-field" />
 
                 <div className="login-remember-block">
                     <Checkbox>Запомнить меня</Checkbox>
