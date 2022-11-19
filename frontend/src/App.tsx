@@ -21,6 +21,7 @@ const App: FC = () => {
               <p><Link to={"/register"}>Register</Link></p>
               <p><Link to={"/cards/append"}>AppendCard</Link></p>
               <p><Link to={"/review"}>Review</Link></p>
+              <p><Link to={"/dashboard"}>Account</Link></p>
 
               {/* {user !== null && (
                 <Navigate to="/dashboard" replace={true} />
@@ -32,6 +33,7 @@ const App: FC = () => {
           <Route path="/register" element={<Registration />} />
           <Route path="/review" element={<ProcessReview />} />
           <Route path="/cards/append" element={<CardLink />} />
+          <Route path="/dashboard" element={<Account />} />
         </Routes>
       </BrowserRouter>
     </div>
