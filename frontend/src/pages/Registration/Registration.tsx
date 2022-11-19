@@ -19,7 +19,6 @@ const Registration: FC = () => {
     useEffect(() => console.log({ user }), [user]);
 
     return (
-        // <div className="page-registration">
         <CenterContent taCenter>
             <div className="formRegistrationWrapper">
                 <InputField
@@ -47,7 +46,6 @@ const Registration: FC = () => {
         </CenterContent>
 
             /* <pre>{JSON.stringify(user, null, 2)}</pre> */ 
-        // </div>
     );
 };
 

@@ -19,7 +19,6 @@ const Login: FC = () => {
     useEffect(() => console.log({ user }), [user]);
 
     return (
-        // <div className="page-login">
         <CenterContent taCenter>
             <div className="formLoginWrapper">
                 <InputField
@@ -49,7 +48,6 @@ const Login: FC = () => {
 
             {/* <pre>{JSON.stringify(user, null, 2)}</pre> */}
         </CenterContent>
-        /* </div> */ 
     );
 };
 
