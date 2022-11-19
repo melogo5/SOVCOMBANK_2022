@@ -2,7 +2,7 @@ import { createEffect, createEvent, createStore } from "effector";
 import { createForm } from "effector-react-form";
 import api from "../../scripts/api";
 
-export const $user = createStore<{ name: string, id: string, user?: boolean, admin?: boolean } | null>(null);
+export const $user = createStore<{ name: string, id: string, user?: boolean, admin?: boolean, email?: string, phone?: string } | null>(null);
 
 // register
 export const registrationForm = createForm();
