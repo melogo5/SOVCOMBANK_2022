@@ -1,9 +1,13 @@
 import { sample } from "effector";
 
 import {
+  $activeCard,
+  $cards,
   cardLinkForm,
   cardLinkFormSubmit,
-  cardLinkFx
+  cardLinkFx,
+  cardListFx,
+  cardSelectFx
 } from "./model";
 
 sample({
@@ -23,4 +27,16 @@ sample({
     fn: data => {
       console.log(data);
     }
+});
+
+sample({
+  clock: cardListFx.doneData,
+  fn: (result) => result,
+  target: $cards
+});
+
+sample({
+  clock: cardSelectFx.doneData,
+  fn: (result) => result,
+  target: $activeCard
 });
