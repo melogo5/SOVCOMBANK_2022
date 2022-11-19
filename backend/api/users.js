@@ -24,7 +24,12 @@ async function routes(fastify, options) {
     const result = await fastify.pg.query(query);
     const user = result.rows[0];
 
-    return { status: "success", id: user.id, name: user.name, user: user.role === USER, admin: user.role === ADMIN };
+    if (!user?.id) {
+      throw new Error('Пользователь не найден');
+    } else {
+      return { status: "success", id: user.id, name: user.name, user: user.role === USER, admin: user.role === ADMIN };
+    }
+
   });
 
   fastify.post(root + "register", async (request, reply) => {
