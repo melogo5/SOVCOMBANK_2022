@@ -32,6 +32,16 @@ async function routes(fastify, options) {
 
   });
 
+  fastify.post(root + 'list', async (request, reply) => {
+    const query = {
+      name: 'users.list',
+      text: "SELECT * FROM users.list"
+    }
+
+    const result = await fastify.pg.query(query);
+    return { status: 'success', data: result.rows};
+  });
+
   fastify.post(root + "register", async (request, reply) => {
     // @ts-ignore
     const { name, password, passwordConfirm } = JSON.parse(request.body);
@@ -54,7 +64,22 @@ async function routes(fastify, options) {
   });
 
   fastify.post(root + "review", async (request, reply) => {
-    return { hello: 'world', api: "users/review", type: "admin", actions: "approve, decline" }
+    const { id, type } = JSON.parse(request.body);
+    let query;
+    if (type === 'approve') {
+      query = {
+        name: 'users.approve',
+        text: 'UPDATE users.list SET role = $2 WHERE id = $1',
+        values: [id, USER]
+      }
+    } else {
+      query = {
+        name: 'users.decline',
+        text: `DELETE FROM users.list WHERE id = ${id}`
+      }
+    }
+    const result = await fastify.pg.query(query);
+    return { status: 'success', data: result.rows};
   });
 }
 

@@ -9,7 +9,13 @@ import {
 
   loginForm,
   loginFormSubmit,
-  loginFx
+  loginFx,
+
+  userReviewSubmit,
+  userReviewFx,
+
+  getUsers,
+  getUsersFx
 } from "./model";
 
 // register
@@ -38,4 +44,24 @@ sample({
   clock: loginFx.doneData,
   // fn: data => data
   target: $user
+});
+
+// review
+sample({
+  clock: userReviewSubmit,
+  source: {},
+  fn: (source, clock) => {
+    return clock;
+  },
+  target: userReviewFx
+});
+
+// get users
+sample({
+  clock: getUsers,
+  source: {},
+  fn: (source, clock) => {
+    return clock;
+  },
+  target: getUsersFx
 });

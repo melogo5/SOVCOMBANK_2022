@@ -1,11 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useUnit } from "effector-react";
+import { $user } from '../../context/user';
 
-import { UserOutlined, TransactionOutlined, WalletOutlined, PlusOutlined } from "@ant-design/icons";
+import { UserOutlined, TransactionOutlined, WalletOutlined, PlusOutlined, SettingOutlined } from "@ant-design/icons";
 
 import "./NavMenu.css";
 
 export const NavMenu: React.FC = () => {
+    // const navigate = useNavigate();
+    const user = useUnit($user);
 
     return (
         <div className="nav-menu-wrapper">
@@ -29,6 +33,13 @@ export const NavMenu: React.FC = () => {
                     <UserOutlined className="menu-icon" />
                 </div>
             </Link>
+            {user && user.admin && (
+                <Link to={"/admin-panel"}>
+                    <div className="menu-icon-wrapper">
+                        <SettingOutlined className="menu-icon" />
+                    </div>
+                </Link>
+            )}
         </div>
     );
 }

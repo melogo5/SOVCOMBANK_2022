@@ -3,6 +3,7 @@ import React, { FC } from 'react';
 import { BrowserRouter, Routes, Route, Link, useNavigate } from "react-router-dom";
 
 import './App.css';
+import { Button, Layout } from 'antd';
 import Login from './pages/Login/Login';
 import Registration from './pages/Registration/Registration';
 import CardLink from './pages/CardLink/CardLink';
@@ -12,15 +13,17 @@ import { NavMenu } from './components';
 import { LotPlacement } from './pages/LotPlacement/LotPlacement';
 import { Market } from './pages/Market/Market';
 import { Profile } from './pages/Profile/Profile';
+import AdminPanel from './pages/AdminPanel/AdminPanel';
+const { Header, Content, Footer } = Layout;
 
 const App: FC = () => {
   const navigate = useNavigate();
   return (
-    <div className="App">
-      <div>
-        Тут должна быть шапка
-        <button onClick={() => navigate(-1)}>Назад</button>
-      </div>
+    <Layout className="layout">
+      <div className="App">
+        <Header className="app-header">
+          <Button onClick={() => navigate(-1)}>Назад</Button>
+        </Header>
         <NavMenu />
         <Routes>
           <Route path="*" element={(
@@ -48,8 +51,10 @@ const App: FC = () => {
           <Route path="/dashboard" element={<Account />} />
           <Route path="/market" element={<Market />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/admin-panel" element={<AdminPanel />} />
         </Routes>
-    </div>
+      </div>
+    </Layout>
   );
 }
 
