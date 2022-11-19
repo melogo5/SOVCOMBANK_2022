@@ -25,6 +25,18 @@ const Registration: FC = () => {
           placeholder="Иван Иванов"
         />
 
+        <InputField
+          controller={controller({ name: "email" })}
+          inputClassName="registration-email-field"
+          placeholder="Электронная почта"
+        />
+
+        <InputField
+          controller={controller({ name: "phone" })}
+          inputClassName="registration-phone-field"
+          placeholder="Телефон"
+        />
+
         <PasswordInputField className="registration-password-field" controller={controller({ name: "password" })} />
         <PasswordInputField className="registration-password-field" controller={controller({ name: "passwordConfirm" })} />
 

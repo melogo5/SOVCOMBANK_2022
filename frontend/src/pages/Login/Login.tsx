@@ -22,7 +22,7 @@ const Login: FC = () => {
           lableClassName="login-label"
           controller={controller({ name: "login" })}
           label={"Вход"}
-          placeholder="Иван"
+          placeholder="Электронная почта"
         />
 
         <PasswordInputField controller={controller({ name: "password" })} className="login-password-field" />
