@@ -14,6 +14,7 @@ import { LotPlacement } from './pages/LotPlacement/LotPlacement';
 import { Market } from './pages/Market/Market';
 import { Profile } from './pages/Profile/Profile';
 import AdminPanel from './pages/AdminPanel/AdminPanel';
+import { CardOrder } from './pages/CardOrder/CardOrder';
 const { Header, Content, Footer } = Layout;
 
 const App: FC = () => {
@@ -36,6 +37,7 @@ const App: FC = () => {
               <p><Link to={"/lotPlacement"}>Lot placement</Link></p>
               <p><Link to={"/market"}>Market</Link></p>
               <p><Link to={"/profile"}>Profile</Link></p>
+              <p><Link to={"/cardOrder"}>Card Ordering</Link></p>
 
               {/* {user !== null && (
                 <Navigate to="/dashboard" replace={true} />
@@ -51,6 +53,7 @@ const App: FC = () => {
           <Route path="/dashboard" element={<Account />} />
           <Route path="/market" element={<Market />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/cardOrder" element={<CardOrder />} />
           <Route path="/admin-panel" element={<AdminPanel />} />
         </Routes>
       </div>

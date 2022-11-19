@@ -1,0 +1,14 @@
+.card-order-wrapper {
+    padding: 10px;
+}
+
+.card-order-create {
+    display: flex;
+    justify-content: space-between;
+}
+
+.card-order-create-btn {
+    background-color: rgb(8, 155, 8) !important;
+    color: white !important;
+    border-radius: 5px !important;
+}
