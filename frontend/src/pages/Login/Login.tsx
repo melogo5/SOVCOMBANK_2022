@@ -1,4 +1,5 @@
 import React, { FC, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
 import { useUnit } from "effector-react";
 import { Button, Checkbox } from 'antd';
 import { useForm } from 'effector-react-form';
@@ -11,11 +12,16 @@ import { PasswordInputField } from '../../form/passwordInput';
 import { CenterContent } from '../../components';
 
 const Login: FC = () => {
+  const navigate = useNavigate();
   const { controller } = useForm({ form: loginForm });
 
   const user = useUnit($user);
+  useEffect(() => {
+    console.log({ user });
+    if (!user) return;
 
-  useEffect(() => console.log({ user }), [user]);
+    if (!user.user) navigate("/review");
+  }, [user]);
 
   return (
     // <div className="page-login">
@@ -39,11 +45,7 @@ const Login: FC = () => {
           </Button>
         </div>
 
-
-        <Button onClick={() => { }} type="default" htmlType="submit">
-          Зарегистрироваться
-        </Button>
-
+        <Button onClick={() => navigate("/register")} type="default">Зарегистрироваться</Button>
       </div>
 
       {/* <pre>{JSON.stringify(user, null, 2)}</pre> */}

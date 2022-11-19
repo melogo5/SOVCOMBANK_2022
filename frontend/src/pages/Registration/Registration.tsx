@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { useNavigate } from "react-router-dom";
 import { useUnit } from "effector-react";
 import { Button } from 'antd';
 import { useForm } from 'effector-react-form';
@@ -12,14 +13,19 @@ import { PasswordInputField } from '../../form/passwordInput';
 import { CenterContent } from '../../components';
 
 const Registration: FC = () => {
-  const { controller } = useForm({ form: registrationForm });
+  const navigate = useNavigate();
 
+  const { controller } = useForm({ form: registrationForm });
   const user = useUnit($user);
 
-  useEffect(() => console.log({ user }), [user]);
+  useEffect(() => {
+    console.log({ user });
+
+    if (!user) return;
+    if (!user.user) navigate("/review");
+}, [user]);
 
   return (
-    // <div className="page-registration">
     <CenterContent taCenter>
       <div className="formRegistrationWrapper">
         <InputField
@@ -38,16 +44,11 @@ const Registration: FC = () => {
             Зарегистрироваться
           </Button>
 
-          <Button onClick={registrationFormSubmit} type="default" htmlType="submit">
-            Войти
-          </Button>
+          <Button onClick={() => navigate("/login")} type="default">Войти</Button>
         </div>
 
       </div>
     </CenterContent>
-
-    /* <pre>{JSON.stringify(user, null, 2)}</pre> */
-    // </div>
   );
 };
 
