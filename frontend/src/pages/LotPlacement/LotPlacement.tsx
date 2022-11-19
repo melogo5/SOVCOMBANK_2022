@@ -1,27 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 import { SwapOutlined } from "@ant-design/icons";
 
 import { LotPlacementBlock } from "./LotPlacementBlock";
 import { Button } from 'antd';
 
 import "./LotPlacement.css";
+import { Switcher } from "../../components";
+
+const options = [{
+    value: "buy",
+    label: "Купить"
+}, {
+    value: "sell",
+    label: "Продать"
+}]
+
+interface LotPlacementProps {
+    firstCurrency: string;
+    secondCurrency: string;
+}
 
 export const LotPlacement: React.FC = () => {
-    const handleSwap = () => {
+    // const { firstCurrency, secondCurrency} = props;
+    const [active, setActive] = useState("buy");
 
+    const handlechange = (value: string) => {
+        setActive(value);
     }
 
     return (
         <div className="lot-placement-wrapper">
-            <LotPlacementBlock type="buy" currency="RUB" />
-            <div className="lot-placement-swap-btn-container">
-                <Button
-                    onClick={handleSwap}
-                    className="lot-placement-swap-btn"
-                    icon={<SwapOutlined />}
-                />
-            </div>
-            <LotPlacementBlock type="sell" currency="EUR" />
+            <Switcher options={options} callback={handlechange} active={active} />
+            {/* ниже нужно прокинуть в type и currency из эффектора данные о том что за валюты мы покупаем/продаем */}
+            <LotPlacementBlock type={active as any} currency={active === "buy" ? "RUB": "EUR"} />
             <Button className="lot-placement-create">Создать лот</Button>
         </div>
     );

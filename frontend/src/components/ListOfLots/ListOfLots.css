@@ -1,0 +1,12 @@
+.list-of-lots-wrapper {
+    
+}
+
+.list-of-lots-item {
+
+}
+
+.lot-item-amount {
+    display: flex;
+    justify-content: end;
+}

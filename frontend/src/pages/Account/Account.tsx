@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from "react";
-import { Button, Typography, Radio } from 'antd';
+import { Button, Typography, Drawer } from 'antd';
 import { useNavigate } from "react-router-dom";
 import type { RadioChangeEvent } from 'antd';
 
@@ -9,6 +9,7 @@ import { BoxShadow } from "../../components/BoxShadow/BoxShadow";
 
 import "./Account.css";
 import { Switcher } from "../../components/Switcher/Switcher";
+import CardList from "../CardList/CardList";
 
 const CURRENCIES = {
     ["RUB"]: "₽",
@@ -18,6 +19,7 @@ const CURRENCIES = {
 export const Account: React.FC = () => {
     const { Text, Title } = Typography;
     const [value, setValue] = useState('RUB');
+    const [cardSelectDrawerOpen, setCardSelectDrawerOpen] = useState(false);
     const navigate = useNavigate();
 
     //const data =
@@ -74,9 +76,21 @@ export const Account: React.FC = () => {
                 </div>
             </BoxShadow>
             <BoxShadow className="account-change-card">
-                <Button className="account-card-actions-btn">Выбрать другую карту</Button>
+                <Button className="account-card-actions-btn" onClick={() => setCardSelectDrawerOpen(true)}>Выбрать другую карту</Button>
                 <Button onClick={() => navigate("/cards/append")} className="account-card-actions-btn">Добавить новую карту</Button>
             </BoxShadow>
+            <Drawer title="Выберите карту"
+                    placement="bottom"
+                    size="large"
+                    extra={
+                        <Button type="primary" onClick={() => setCardSelectDrawerOpen(false)}>
+                        ОК
+                        </Button>
+                    }
+                    onClose={() => setCardSelectDrawerOpen(false)}
+                    open={cardSelectDrawerOpen}>
+                <CardList></CardList>
+            </Drawer>
         </div>
     );
 }
