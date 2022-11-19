@@ -28,6 +28,7 @@ const AdminPanel: FC = () => {
     const isPositive = type === 'approve';
     return <>
       <Button
+        size='large'
         icon={isPositive ? <LikeOutlined /> : <DislikeOutlined />}
         onClick={() => {
           const request: UserReviewRequest = { id: user.id, type };

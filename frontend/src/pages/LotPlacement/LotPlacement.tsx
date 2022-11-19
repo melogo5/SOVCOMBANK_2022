@@ -33,7 +33,7 @@ export const LotPlacement: React.FC = () => {
             <Switcher options={options} callback={handlechange} active={active} />
             {/* ниже нужно прокинуть в type и currency из эффектора данные о том что за валюты мы покупаем/продаем */}
             <LotPlacementBlock type={active as any} currency={active === "buy" ? "RUB": "EUR"} />
-            <Button className="lot-placement-create">Создать лот</Button>
+            <Button size='large' className="lot-placement-create">Создать лот</Button>
         </div>
     );
 }

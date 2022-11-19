@@ -39,14 +39,14 @@ export const CardOrder: React.FC = () => {
         <div className="card-order-wrapper">
             <BoxShadow className="card-order-create">
                 <Dropdown menu={menuProps}>
-                    <Button>
+                    <Button size='large'>
                         <Space>
                             {country.label}
                             <DownOutlined />
                         </Space>
                     </Button>
                 </Dropdown>
-                <Button className="card-order-create-btn">Заказать</Button>
+                <Button size='large' className="card-order-create-btn">Заказать</Button>
             </BoxShadow>
             <BoxShadow>
                 <CardView name="ANDREY POTASHIN" number="4800 5553 5512 1234" date="01/24" code="123"/>

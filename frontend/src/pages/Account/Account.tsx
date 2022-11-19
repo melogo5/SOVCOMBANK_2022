@@ -71,19 +71,19 @@ export const Account: React.FC = () => {
                     <SettingOutlined className="card-settings-icon" />
                 </div>
                 <div className="account-card-actions">
-                    <Button className="account-card-actions-btn card-btn-in">Пополнить с этой карты</Button>
-                    <Button className="account-card-actions-btn card-btn-out">Вывести на эту карту</Button>
+                    <Button size='large' className="account-card-actions-btn card-btn-in">Пополнить с этой карты</Button>
+                    <Button size='large' className="account-card-actions-btn card-btn-out">Вывести на эту карту</Button>
                 </div>
             </BoxShadow>
             <BoxShadow className="account-change-card">
-                <Button className="account-card-actions-btn" onClick={() => setCardSelectDrawerOpen(true)}>Выбрать другую карту</Button>
-                <Button onClick={() => navigate("/cards/append")} className="account-card-actions-btn">Добавить новую карту</Button>
+                <Button size='large' className="account-card-actions-btn" onClick={() => setCardSelectDrawerOpen(true)}>Выбрать другую карту</Button>
+                <Button size='large' onClick={() => navigate("/cards/append")} className="account-card-actions-btn">Добавить новую карту</Button>
             </BoxShadow>
             <Drawer title="Выберите карту"
                     placement="bottom"
                     size="large"
                     extra={
-                        <Button type="primary" onClick={() => setCardSelectDrawerOpen(false)}>
+                        <Button size='large' type="primary" onClick={() => setCardSelectDrawerOpen(false)}>
                         ОК
                         </Button>
                     }

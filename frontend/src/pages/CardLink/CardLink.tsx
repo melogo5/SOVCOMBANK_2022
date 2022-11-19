@@ -58,6 +58,7 @@ const CardLink: FC = () => {
                 />
             </div>
             <Button
+                size='large'
                 className="page-cardLink-submitBtn"
                 onClick={() => {
                     if (user)  {

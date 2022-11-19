@@ -23,7 +23,7 @@ const App: FC = () => {
     <Layout className="layout">
       <div className="App">
         <Header className="app-header" style={{display: location.pathname === "/login" || location.pathname === "/register" ? "none": ""}}>
-          <Button onClick={() => navigate(-1)}>Назад</Button>
+          <Button size='large' onClick={() => navigate(-1)}>Назад</Button>
         </Header>
         <NavMenu />
         <Routes>

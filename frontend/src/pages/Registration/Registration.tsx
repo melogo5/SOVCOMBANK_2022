@@ -41,11 +41,11 @@ const Registration: FC = () => {
         <PasswordInputField className="registration-password-field" controller={controller({ name: "passwordConfirm" })} />
 
         <div className="registration-buttons">
-          <Button onClick={registrationFormSubmit} type="primary" htmlType="submit">
+          <Button size='large' onClick={registrationFormSubmit} type="primary" htmlType="submit">
             Зарегистрироваться
           </Button>
 
-          <Button onClick={() => navigate("/login")} type="default">Войти</Button>
+          <Button size='large' onClick={() => navigate("/login")} type="default">Войти</Button>
         </div>
 
       </div>

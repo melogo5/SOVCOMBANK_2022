@@ -30,12 +30,12 @@ const Login: FC = () => {
         <div className="login-remember-block">
           <Checkbox>Запомнить меня</Checkbox>
 
-          <Button onClick={loginFormSubmit} type="primary" htmlType="submit">
+          <Button size='large' onClick={loginFormSubmit} type="primary" htmlType="submit">
             Войти
           </Button>
         </div>
 
-        <Button onClick={() => navigate("/register")} type="default">Зарегистрироваться</Button>
+        <Button size='large' onClick={() => navigate("/register")} type="default">Зарегистрироваться</Button>
       </div>
     </CenterContent>
   );

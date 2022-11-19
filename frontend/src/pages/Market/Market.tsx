@@ -36,7 +36,7 @@ export const Market: React.FC = () => {
       <BoxShadow>
         <div className="currency-pair-choice">
           <Dropdown menu={menuProps}>
-            <Button>
+            <Button size='large'>
               <Space>
                 Выберите пару
                 <DownOutlined />
@@ -44,7 +44,7 @@ export const Market: React.FC = () => {
             </Button>
           </Dropdown>
         </div>
-        <Button className="create-lot-btn" onClick={() => navigate("/lotPlacement")}>Создать лот</Button>
+        <Button size='large' className="create-lot-btn" onClick={() => navigate("/lotPlacement")}>Создать лот</Button>
       </BoxShadow>
     </div>
   );
