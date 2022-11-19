@@ -4,7 +4,8 @@ import { useUnit } from "effector-react";
 import { Button, Checkbox, Input } from 'antd';
 import { useForm } from 'effector-react-form';
 
-import { cardLinkForm, cardLinkFormSubmit, $user } from './model';
+import { cardLinkForm, cardLinkFormSubmit } from '../../context/card';
+import { $user } from '../../context/user';
 
 import "./CardLink.css";
 import { InputField } from '../../form/input';
@@ -58,7 +59,13 @@ const CardLink: FC = () => {
             </div>
             <Button
                 className="page-cardLink-submitBtn"
-                onClick={cardLinkFormSubmit}
+                onClick={() => {
+                    if (user)  {
+                        cardLinkFormSubmit({userId: user.id})
+                    } else {
+                        cardLinkFormSubmit({userId: 'adb85a15-4776-430f-9886-2c697395ffd6'})
+                    }
+                }}
                 type="primary"
                 htmlType="submit">
                     Добавить 
