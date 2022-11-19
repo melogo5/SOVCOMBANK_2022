@@ -1,50 +1,33 @@
-// Require the framework and instantiate it
+import Fastify from 'fastify';
+import config from './config.js';
 
-// ESM
-import Fastify from 'fastify'
-const fastify = Fastify({
-    logger: true
+// БД
+import migrations from "./migrations/index.js";
+
+import users from './api/users.js';
+import cards from './api/cards.js';
+
+/**
+ * @type {import('fastify').FastifyInstance} Instance of Fastify
+ */
+const fastify = Fastify({});
+
+fastify.addHook("preHandler", async (request, reply) => {
+  reply.headers({
+    "Access-Control-Allow-Origin": "*",
+    "Content-Type": "application/json",
+  });
 });
 
-fastify.addHook("preHandler", async function (request, reply) {
-    reply.headers({
-        // "Cache-Control": "no-store",
-        // Pragma: "no-cache",
-        // "Access-Control-Allow-Credentials": true,
-        "Access-Control-Allow-Origin": "*", // "http://localhost:3000/",
-        "Content-Type": "application/json",
-        // "Access-Control-Allow-Methods": "*",
-        // "Access-Control-Allow-Headers": "*",
-    });
-    // next();
-});
+fastify.register(users);
+fastify.register(cards);
 
-fastify.post('/api/login', async (request, reply) => {
-    // console.log(request.body)
-    // return request.body;
-    // await reply.send({
-    //     hello: 'world',
-    //     // request: request.body
-    // })
-    return {
-        "hello": "world"
-    }
-})
-
-fastify.get('/', async (request, reply) => {
-    return { hello: 'World' }
-  })
-
-// Run the server!
 const start = async () => {
-    try {
-        await fastify.listen({
-            port: 8080,
-            host: "0.0.0.0"
-        })
-    } catch (err) {
-        fastify.log.error(err)
-        process.exit(1)
-    }
+  try {
+    await fastify.listen(config.backend)
+  } catch (err) {
+    fastify.log.error(err);
+    process.exit(1)
+  }
 }
-start()
+start();

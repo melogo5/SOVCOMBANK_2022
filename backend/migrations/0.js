@@ -1,5 +1,5 @@
 export default async function migration(client) {
-    const query = `
+  const query = `
     SET statement_timeout = 0;
     SET lock_timeout = 0;
     SET idle_in_transaction_session_timeout = 0;
@@ -10,23 +10,14 @@ export default async function migration(client) {
     SET xmloption = content;
     SET client_min_messages = warning;
     SET row_security = off;
-    
+
     SET default_tablespace = '';
-    
     SET default_table_access_method = heap;
-    
-    CREATE TABLE public.migrations (
-        id text
-    );
 
-    CREATE TABLE public.usres (
-        id text,
-        name text,
-        password boolean
-    );
-    `
+    CREATE TABLE public.migrations (id text);
+  `
 
-    await client.query(query);
-    await client.query(`INSERT INTO public.migrations (id) VALUES ('0');`);
-    console.log`migration 0 created`;
+  await client.query(query);
+  await client.query(`INSERT INTO public.migrations (id) VALUES ('0');`);
+  console.log`migration 0 created`;
 }
