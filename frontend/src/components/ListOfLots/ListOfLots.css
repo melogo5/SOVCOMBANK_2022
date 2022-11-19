@@ -3,5 +3,10 @@
 }
 
 .list-of-lots-item {
-    
+
+}
+
+.lot-item-amount {
+    display: flex;
+    justify-content: end;
 }

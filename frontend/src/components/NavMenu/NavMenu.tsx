@@ -24,7 +24,7 @@ export const NavMenu: React.FC = () => {
                 </div>
             </Link>
             <Link to={"/cardOrder"}>
-                <div className={`menu-icon-wrapper ${location.pathname === "/" ? "menu-icon-wrapper-active" : ""}`}>
+                <div className={`menu-icon-wrapper ${location.pathname === "/cardOrder" ? "menu-icon-wrapper-active" : ""}`}>
                     <PlusOutlined className="menu-icon" />
                 </div>
             </Link>
