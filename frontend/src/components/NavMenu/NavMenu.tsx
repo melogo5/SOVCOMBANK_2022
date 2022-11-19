@@ -6,40 +6,29 @@ import { UserOutlined, TransactionOutlined, WalletOutlined, PlusOutlined } from 
 import "./NavMenu.css";
 
 export const NavMenu: React.FC = () => {
-    // const navigate = useNavigate();
-
-    const replace = (path: string) => {
-        if (location.pathname === path) return;
-
-        location.replace("/dashboard")
-    }
 
     return (
-        // <BrowserRouter>
-        // <Routes>
         <div className="nav-menu-wrapper">
             <Link to={"/dashboard"}>
-                <div className="menu-icon-wrapper" >
+                <div className={`menu-icon-wrapper ${location.pathname === "/dashboard" ? "menu-icon-wrapper-active" : ""}`} >
                     <WalletOutlined className="menu-icon" />
                 </div>
             </Link>
             <Link to={"/"}>
-            <div className="menu-icon-wrapper">
-                <TransactionOutlined className="menu-icon" />
-            </div>
+                <div className={`menu-icon-wrapper ${location.pathname === "/" ? "menu-icon-wrapper-active" : ""}`}>
+                    <TransactionOutlined className="menu-icon" />
+                </div>
             </Link>
             <Link to={"/"}>
-            <div className="menu-icon-wrapper">
-                <PlusOutlined className="menu-icon" />
-            </div>
+                <div className={`menu-icon-wrapper ${location.pathname === "/" ? "menu-icon-wrapper-active" : ""}`}>
+                    <PlusOutlined className="menu-icon" />
+                </div>
             </Link>
             <Link to={"/"}>
-            <div className="menu-icon-wrapper">
-                <UserOutlined className="menu-icon" />
-            </div>
+                <div className={`menu-icon-wrapper ${location.pathname === "/" ? "menu-icon-wrapper-active" : ""}`}>
+                    <UserOutlined className="menu-icon" />
+                </div>
             </Link>
         </div>
-        // {/* </Routes> */}
-        // {/* </BrowserRouter> */}
     );
 }

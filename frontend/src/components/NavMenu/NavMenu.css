@@ -18,6 +18,10 @@
     justify-items: center;
 }
 
+.menu-icon-wrapper-active {
+    color: rebeccapurple !important;
+}
+
 .menu-icon {
     font-size: 60px;
     color: white;
