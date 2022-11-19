@@ -15,7 +15,6 @@ const variants = [
 ];
 
 export const Market: React.FC = () => {
-  const { Text, Title } = Typography;
   const navigate = useNavigate();
 
   const items: MenuProps['items'] = variants.map(e => ({
@@ -36,11 +35,10 @@ export const Market: React.FC = () => {
     <div className="market-wrapper">
       <BoxShadow>
         <div className="currency-pair-choice">
-          <Title level={3} style={{ margin: 0 }}>Выберите пару:</Title>
           <Dropdown menu={menuProps}>
             <Button>
               <Space>
-                {"Button"}
+                Выберите пару
                 <DownOutlined />
               </Space>
             </Button>
