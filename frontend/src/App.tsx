@@ -9,8 +9,8 @@ const App: FC = () => {
 
   return (
     <div className="App">
-      <Login />
-      {/* <Registration /> */}
+      {/* <Login /> */}
+      <Registration />
     </div>
   );
 }
