@@ -6,6 +6,5 @@ export const cardLinkForm = createForm();
 
 export const cardLinkFormSubmit = createEvent<any>();
 
-export const cardLinkFx = createEffect((values: any) => {
-    return api("cards/append", values);
-});
+export const cardLinkFx = createEffect((values: any) => api("cards/append", values));
+

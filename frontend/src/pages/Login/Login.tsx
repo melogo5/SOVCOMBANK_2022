@@ -1,11 +1,9 @@
-import React, { FC, useEffect } from 'react';
-import { useNavigate, useLocation } from "react-router-dom";
-import { useUnit } from "effector-react";
+import React, { FC } from 'react';
+import { useNavigate } from "react-router-dom";
 import { Button, Checkbox } from 'antd';
 import { useForm } from 'effector-react-form';
-
-import { loginForm, loginFormSubmit, $user } from '../../context/user';
-
+import { loginForm, loginFormSubmit } from '../../context/user';
+import useLoginNavigate from "../../hook/useLoginNavigate";
 import "./Login.css";
 import { InputField } from '../../form/input';
 import { PasswordInputField } from '../../form/passwordInput';
@@ -13,22 +11,10 @@ import { CenterContent } from '../../components';
 
 const Login: FC = () => {
   const navigate = useNavigate();
-  const location = useLocation();
   const { controller } = useForm({ form: loginForm });
-
-  const user = useUnit($user);
-  useEffect(() => {
-    console.log({ user });
-    if (!user) return;
-    if (user.admin) {
-      navigate("/admin-panel");
-      return;
-    }
-    if (!user.user) navigate("/review");
-  }, [user]);
+  useLoginNavigate();
 
   return (
-    // <div className="page-login">
     <CenterContent taCenter>
       <div className="formLoginWrapper">
         <InputField
@@ -51,10 +37,7 @@ const Login: FC = () => {
 
         <Button onClick={() => navigate("/register")} type="default">Зарегистрироваться</Button>
       </div>
-
-      {/* <pre>{JSON.stringify(user, null, 2)}</pre> */}
     </CenterContent>
-    /* </div> */
   );
 };
 

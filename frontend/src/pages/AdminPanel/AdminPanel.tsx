@@ -1,22 +1,18 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect } from 'react';
 import { LikeOutlined, DislikeOutlined } from '@ant-design/icons';
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useUnit } from "effector-react";
 import { Button, List } from 'antd';
-
-import { $user, getUsers, getUsersFx } from '../../context/user';
-import api from '../../scripts/api';
-
-import { useEffect } from 'react';
-import { createEffect } from 'effector';
+import { $user } from '../../context/user';
+import { $users, getUsersFx, UserReviewRequest, userReviewFx } from '../../context/admin';
 
 const PERSON = "de2e0148-029b-4206-8676-eb764a24bcb8";
 const USER = "de2e0148-029b-4206-8676-eb764a24bcb9";
 const ADMIN = "de2e0148-029b-4206-8676-eb764a24bcb0";
 
 const ROLE_NAME = {
-  [PERSON]: 'Не подтвержденный пользовтель',
-  [USER]: 'Участник',
+  [PERSON]: 'На проверке',
+  [USER]: 'Клиент',
   [ADMIN]: 'Администратор'
 }
 
@@ -27,15 +23,16 @@ interface IUser {
   role: typeof PERSON | typeof USER | typeof ADMIN;
 }
 
-type TReview = 'decline' | 'approve';
-
 const AdminPanel: FC = () => {
-  const IconText = ({ type, user }: { type: TReview, user: IUser }) => {
+  const IconText = ({ type, user }: { type: UserReviewRequest["type"], user: IUser }) => {
     const isPositive = type === 'approve';
     return <>
       <Button
         icon={isPositive ? <LikeOutlined /> : <DislikeOutlined />}
-        onClick={() => reviewUser(user.id, type)}
+        onClick={() => {
+          const request: UserReviewRequest = { id: user.id, type };
+          userReviewFx(request);
+        }}
         type={isPositive ? 'primary' : 'ghost'}
       >
         {isPositive ? 'Принять' : 'Отклонить'}
@@ -43,42 +40,24 @@ const AdminPanel: FC = () => {
     </>
   };
 
-  const getUsersList = async () => {
-    const users = await api('users/list', {});
-    return users;
-  };
-  
-  const reviewUser = async (id: string, type: TReview) => {
-    console.log(type);
-    const result = await api('users/review', {id, type});
-    const newUsers = await getUsersList();
-    setUsersList(newUsers.data);
-    return result;
-  };
-  
-  const [usersList, setUsersList] = useState();
   const navigate = useNavigate();
-  const user = useUnit($user);
+  const [user, users] = useUnit([$user, $users]);
 
   useEffect(() => {
-    console.log({ user });
+    console.log("rerender");
     if (!user || user && !user.admin) {
-        navigate('/');
+      navigate('/');
+      return;
     }
-  }, [user]);
 
-  useEffect(() => {
-    // TODO Вынести наружу
-    getUsersList().then(users => {
-        setUsersList(users.data);
-    })
+    getUsersFx();
   }, []);
 
   return (
     <div className="page-cardLink">
       <List
         itemLayout="horizontal"
-        dataSource={usersList}
+        dataSource={users}
         renderItem={(user: IUser) => (
           <List.Item
             key={user.id}

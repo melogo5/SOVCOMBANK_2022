@@ -45,6 +45,8 @@ async function routes(fastify, options) {
         text: "INSERT INTO cards.list(cardNumber, cardHolder, cardExpireDate, cardSecret) VALUES($1, $2, $3, $4) RETURNING (id)",
         values: [cardNumber, holderName, validThru, CVC]
       }
+
+      // @ts-ignore
       const createResult = await fastify.pg.query(createCardQuery);
       const newCardId = createResult.rows[0].id;
 
@@ -53,8 +55,9 @@ async function routes(fastify, options) {
         text: 'INSERT INTO cards.users(name, "user", card, active) VALUES($1, $2, $3, $4) RETURNING id, name, "user", card, active',
         values: [user.name, user.id, newCardId, true]
       }
+
+      // @ts-ignore
       const linkResult = await fastify.pg.query(linkCardToUserQuery);
-      console.log(linkResult);
       const newLinkedCard = linkResult.rows[0];
       return newLinkedCard;
     }
@@ -70,7 +73,16 @@ async function routes(fastify, options) {
   });
 
   fastify.post(root + "list", async (request, reply) => {
-    return { hello: 'world', api: "cards/list", description: "список привязанных карт пользователя" }
+    // @ts-ignore
+    const { userId } = JSON.parse(request.body);
+    const query = {
+      name: 'cards.list',
+      text: "select cards.list.id, cards.list.cardholder, cards.list.cardnumber, cards.list.cardexpiredate from cards.list, cards.users WHERE cards.users.user = $1 GROUP BY cards.list.id",
+      values: [userId],
+    }
+    // @ts-ignore
+    const result = await fastify.pg.query(query);
+    return result.rows;
   });
 
   fastify.post(root + "select", async (request, reply) => {
