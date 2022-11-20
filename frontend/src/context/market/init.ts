@@ -12,7 +12,8 @@ import {
   $exchangeData,
 
   createOrderForm,
-  createOrderFormChangeType
+  createOrderFormChangeType,
+  createOrderFx
 } from "./model";
 
 sample({
@@ -99,3 +100,11 @@ sample({
   fn: (user, meta) => ({ ...meta, userId: user!.id }),
   target: createOrderForm.$meta
 });
+
+// после создания заявки можно перегрузить список созданных заявок
+// правда юзер не видит свои заявки, так что есть ли в этом смысл?
+// sample({
+//   clock: createOrderFx.done,
+//   fn: ({ params }) => params, // { marketId, userId }
+//   target: exchangeOrdersFx
+// });
