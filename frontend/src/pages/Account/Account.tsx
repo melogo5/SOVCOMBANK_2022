@@ -40,10 +40,6 @@ export const Account: React.FC = () => {
         secondTotal: 1890
     }
 
-    useEffect(() => {
-        getBalanceFx({userId: user && user.id});
-    }, []);
-
     const options = useMemo(() => {
         return [
             { label: 'Рубли', value: data.currency },
@@ -75,7 +71,7 @@ export const Account: React.FC = () => {
                     Баланс
                 </Title>
                 <Title className="account-amount">
-                    {`${( user && user.id ? userBalance ? userBalance : user.balance : 1000)} ${CURRENCIES[value]} `}
+                    {`${( user && user.id ? userBalance : 1000)} ${CURRENCIES[value]} `}
                 </Title>
             </BoxShadow>
             <BoxShadow>

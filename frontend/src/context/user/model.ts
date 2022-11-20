@@ -4,7 +4,9 @@ import api from "../../scripts/api";
 import { UserDescriptor } from "./types";
 
 export const $user = createStore<UserDescriptor | null>(null);
-export const $userBalance = createStore<number>(0);
+export const $userBalance  = $user.map(user => {
+    return user && user.balance || 0;
+});
 
 // register
 export const registrationForm = createForm();

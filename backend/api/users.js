@@ -130,7 +130,6 @@ async function routes(fastify, options) {
       text: 'UPDATE users.list SET balance = $1 WHERE id = $2',
       values: [newBalance, userId]
     }
-    console.log(newBalance, userId);
     const result = await fastify.pg.query(query);
     return { status: 'success', data: result.rows, balance: newBalance };
   });
