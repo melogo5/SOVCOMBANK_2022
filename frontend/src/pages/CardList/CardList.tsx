@@ -8,6 +8,7 @@ import { $activeCard, $cards, cardListFx, cardSelectFx } from '../../context/car
 import { $users } from '../../context/admin';
 import './CardList.css';
 import { BoxShadow } from '../../components';
+import { CardView } from '../../components/CardView/CardView';
 
 const CardList: FC = () => {
   const navigate = useNavigate();
@@ -19,12 +20,19 @@ const CardList: FC = () => {
     for (const card of cards) {
         radioBtns.push(<Radio key={card.id} value={card.id}>{
             <BoxShadow>
-                <div><CreditCardOutlined /> **** {card.cardNumber.split(' ').reverse()[0]}</div>
-                <div><UserOutlined /> Владелец: {card.cardHolder}</div>
+              <CardView
+                number={'**** ' + card.cardNumber.split(' ').reverse()[0]}
+                code="***"
+                date={card.cardExpireDate}
+                name={card.cardHolder.toUpperCase()} />
             </BoxShadow>
             }</Radio>)
     }
-    return <Radio.Group className='card-list-radioGroup' size="large" onChange={(e) => cardSelectFx({cardId: e.target.value})} value={activeCard}>
+    return <Radio.Group
+      className='card-list-radioGroup'
+      size="large"
+      onChange={(e) => cardSelectFx({cardId: e.target.value})}
+      value={activeCard && activeCard.id}>
         {radioBtns}
     </Radio.Group>
   };

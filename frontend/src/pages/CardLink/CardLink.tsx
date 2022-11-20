@@ -10,10 +10,11 @@ import { $user } from '../../context/user';
 import "./CardLink.css";
 import { InputField } from '../../form/input';
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const CardLink: FC = () => {
     const { controller, handleSubmit } = useForm({ form: cardLinkForm });
-
+    const navigate = useNavigate();
     const user = useUnit($user);
 
     useEffect(() => console.log({ user }), [user]);
@@ -64,8 +65,9 @@ const CardLink: FC = () => {
                     if (user)  {
                         cardLinkFormSubmit({userId: user.id})
                     } else {
-                        cardLinkFormSubmit({userId: 'adb85a15-4776-430f-9886-2c697395ffd6'})
+                        cardLinkFormSubmit({userId: 'adb85a15-4776-430f-9886-2c697395ffd6'});
                     }
+                    navigate(-1);
                 }}
                 type="primary"
                 htmlType="submit">

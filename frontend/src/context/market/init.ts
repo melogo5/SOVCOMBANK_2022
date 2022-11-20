@@ -12,7 +12,10 @@ import {
   $exchangeData,
 
   createOrderForm,
-  createOrderFormChangeType
+  createOrderFormChangeType,
+  
+  currencyListFx,
+  $currencyList
 } from "./model";
 
 sample({
@@ -99,4 +102,13 @@ sample({
   filter: (user, meta) => user !== null && meta.userId !== user.id,
   fn: (user, meta) => ({ ...meta, userId: user!.id }),
   target: createOrderForm.$meta
+});
+
+// Список валюты
+sample({
+  clock: currencyListFx.doneData,
+  fn: (result) => {
+    return result.data;
+  },
+  target: $currencyList
 });

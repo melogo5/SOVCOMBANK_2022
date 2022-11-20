@@ -11,6 +11,7 @@
     "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6",
     "antd": "^4.24.1",
+    "babel-preset-es2015": "^6.24.1",
     "effector": "^22.4.0",
     "effector-react": "^22.3.4",
     "effector-react-form": "^3.0.0-4",

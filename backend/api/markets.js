@@ -31,6 +31,16 @@ async function routes(fastify, options) {
     return market;
   });
 
+  fastify.post(root + "currencyList", async (request, reply) => {
+    const query = {
+      name: 'market.currencyList',
+      text: "SELECT * FROM market.currency",
+    }
+    // @ts-ignore
+    const result = await fastify.pg.query(query);
+    return { status: 'success', data: result.rows };
+  });
+
   fastify.post(root + "orders", async (request, reply) => {
     // @ts-ignore
     const { marketId, userId } = JSON.parse(request.body);

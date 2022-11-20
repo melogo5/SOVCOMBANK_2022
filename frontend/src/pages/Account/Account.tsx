@@ -9,7 +9,10 @@ import { BoxShadow } from "../../components/BoxShadow/BoxShadow";
 
 import "./Account.css";
 import { Switcher } from "../../components/Switcher/Switcher";
+import { $activeCard } from '../../context/card';
 import CardList from "../CardList/CardList";
+import { useUnit } from "effector-react";
+import { CardView } from "../../components/CardView/CardView";
 
 const CURRENCIES = {
     ["RUB"]: "₽",
@@ -18,6 +21,7 @@ const CURRENCIES = {
 
 export const Account: React.FC = () => {
     const { Text, Title } = Typography;
+    const activeCard = useUnit($activeCard);
     const [value, setValue] = useState('RUB');
     const [cardSelectDrawerOpen, setCardSelectDrawerOpen] = useState(false);
     const navigate = useNavigate();
@@ -65,10 +69,14 @@ export const Account: React.FC = () => {
             </BoxShadow>
             <BoxShadow>
                 <div className="card-header-settings">
+                    {activeCard && activeCard.id ? (<CardView
+                        number={'**** ' + activeCard.cardNumber.split(' ').reverse()[0]}
+                        code="***"
+                        date={activeCard.cardExpireDate}
+                        name={activeCard.cardHolder.toUpperCase()}/>) : (
                     <Title className="card-header-number" level={2}>
                         {`Карта: ${data.card} `}
-                    </Title>
-                    <SettingOutlined className="card-settings-icon" />
+                    </Title>)}
                 </div>
                 <div className="account-card-actions">
                     <Button size='large' className="account-card-actions-btn card-btn-in">Пополнить с этой карты</Button>

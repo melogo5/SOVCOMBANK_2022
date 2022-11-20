@@ -67,7 +67,7 @@ async function routes(fastify, options) {
     const { userId } = JSON.parse(request.body);
     const query = {
       name: 'cards.list',
-      text: "select cards.list.id, cards.list.cardholder, cards.list.cardnumber, cards.list.cardexpiredate from cards.list, cards.users WHERE cards.users.user = $1 GROUP BY cards.list.id",
+      text: "SELECT cards.list.id, cards.list.cardholder, cards.list.cardnumber, cards.list.cardexpiredate FROM cards.list, cards.users WHERE cards.users.user = $1 GROUP BY cards.list.id",
       values: [userId],
     }
     // @ts-ignore
@@ -83,7 +83,40 @@ async function routes(fastify, options) {
   });
 
   fastify.post(root + "select", async (request, reply) => {
-    return { hello: 'world', api: "cards/select", description: "выбор карты для операции? мб не надо будет этот метод" }
+    // @ts-ignore
+    const { userId, cardId } = JSON.parse(request.body);
+
+    const deactivateUserCardsQuery = {
+      name: 'card.deactivate',
+      text: 'UPDATE cards.users SET active = $1 WHERE user = $2',
+      values: [false, userId]
+    };
+    // @ts-ignore
+    await fastify.pg.query(deactivateUserCardsQuery);
+    const setActiveQuery = {
+      name: 'card.select',
+      text: 'UPDATE cards.users SET active = $1 WHERE user = $2 AND card = $3',
+      values: [true, userId, cardId]
+    };
+    // @ts-ignore
+    await fastify.pg.query(setActiveQuery);
+    const getSelectedCardQuery = {
+      name: 'card.get',
+      text: 'SELECT cards.list.id, cards.list.cardholder, cards.list.cardnumber, cards.list.cardexpiredate FROM cards.list WHERE cards.list.id = $1',
+      values: [cardId]
+    };
+    // @ts-ignore
+    const getCardResult = await fastify.pg.query(getSelectedCardQuery);
+    const card = getCardResult.rows[0];
+    return {
+      status: 'success',
+      card: {
+        ...card,
+        cardHolder: card.cardholder,
+        cardExpireDate: card.cardexpiredate,
+        cardNumber: card.cardnumber
+      }
+    };
   });
 }
 
