@@ -71,7 +71,7 @@ export const Account: React.FC = () => {
                     Баланс
                 </Title>
                 <Title className="account-amount">
-                    {`${( user && user.id ? userBalance : 1000)} ${CURRENCIES[value]} `}
+                    {`${Number( user && user.id ? userBalance : 1000).toFixed(2)} ${CURRENCIES[value]} `}
                 </Title>
             </BoxShadow>
             <BoxShadow>
