@@ -6,7 +6,13 @@ import {
 
   exchangeSelect,
   $exchange,
-  exchangeOrdersFx
+  exchangeOrdersFx,
+  $exchangeOrders,
+  exchangeDataFx,
+  $exchangeData,
+
+  createOrderForm,
+  createOrderFormChangeType
 } from "./model";
 
 sample({
@@ -28,4 +34,68 @@ sample({
   filter: (user, exchange) => Boolean(exchange && user),
   fn: (user, exchange) => ({ marketId: exchange, userId: user!.id }),
   target: exchangeOrdersFx
+});
+
+sample({
+  source: exchangeOrdersFx.doneData,
+  target: $exchangeOrders
+});
+
+// запрос инфы о бирже для выбранной пары валют
+sample({
+  clock: exchangeSelect,
+  filter: exchange => Boolean(exchange),
+  target: exchangeDataFx
+});
+
+sample({
+  source: exchangeDataFx.doneData,
+  target: $exchangeData
+});
+
+// форма создяния заявки
+// расчёт курса
+sample({
+  clock: createOrderForm.onChangeFieldBrowser,
+  source: { values: createOrderForm.$values, meta: createOrderForm.$meta },
+  filter: ({ values }, clock) => values.from > 0 && values.to > 0,
+  fn: ({ values, meta }, clock) => {
+    const rate = (values.from / values.to);
+    return { ...meta, rate };
+  },
+  target: createOrderForm.$meta
+});
+
+sample({
+  clock: createOrderForm.onChangeFieldBrowser,
+  source: { values: createOrderForm.$values, meta: createOrderForm.$meta },
+  filter: ({ values }, clock) => !values.from || !values.to,
+  fn: ({ values, meta }, clock) => ({ ...meta, rate: 0 }),
+  target: createOrderForm.$meta
+});
+
+// смена типа заявки
+sample({
+  clock: createOrderFormChangeType,
+  source: createOrderForm.$meta,
+  fn: (meta, type) => ({ ...meta, type }),
+  target: createOrderForm.$meta
+});
+
+// смена биржи
+sample({
+  clock: createOrderForm.$meta,
+  source: $exchange,
+  filter: (marketId, meta) => Boolean(marketId) && meta.marketId !== marketId,
+  fn: (marketId, meta) => ({ ...meta, marketId }),
+  target: createOrderForm.$meta
+});
+
+// юзер
+sample({
+  clock: createOrderForm.$meta,
+  source: $user,
+  filter: (user, meta) => user !== null && meta.userId !== user.id,
+  fn: (user, meta) => ({ ...meta, userId: user!.id }),
+  target: createOrderForm.$meta
 });

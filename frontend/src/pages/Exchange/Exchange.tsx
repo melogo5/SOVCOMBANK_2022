@@ -1,16 +1,17 @@
 // Exchange -
 import React, { FC } from "react";
 import { useUnit } from "effector-react";
-import { $exchange } from "../../context/market";
+import { $exchange, $exchangeOrders } from "../../context/market";
 
 const Exchange: FC = () => {
-  const exchange = useUnit($exchange);
+  const [exchangeId, exchangeOrders] = useUnit([$exchange, $exchangeOrders]);
 
-  if (!exchange) return null;
+  if (!exchangeId) return null;
   return (
     <>
       биржа
-      {exchange}
+      <p>{exchangeId}</p>
+      <pre>{JSON.stringify(exchangeOrders || [], null, 2)}</pre>
     </>
   );
 };

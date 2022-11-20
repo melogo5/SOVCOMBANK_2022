@@ -1,3 +1,5 @@
+import {getUser} from '../service/user.js';
+
 const root = "/api/cards/";
 
 /**
@@ -23,19 +25,7 @@ async function routes(fastify, options) {
       throw new Error(errorMsg);
     }
 
-    const getUser = async () => {
-      const query = {
-        name: 'users.find',
-        text: "SELECT id, name, role FROM users.list WHERE list.id = $1",
-        values: [userId],
-      }
-      // @ts-ignore
-      const result = await fastify.pg.query(query);
-      const user = result.rows[0];
-      return user;
-    }
-
-    const user = await getUser();
+    const user = await getUser(fastify.pg, userId);
     if (!user?.id) {
       throw new Error('Пользователь не найден');
     }

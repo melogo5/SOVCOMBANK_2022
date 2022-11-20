@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import { SwapOutlined } from "@ant-design/icons";
-
-import { LotPlacementBlock } from "./LotPlacementBlock";
+import React, { FC, useState } from "react";
+import { useUnit } from "effector-react";
 import { Button } from 'antd';
-
-import "./LotPlacement.css";
+import { SwapOutlined } from "@ant-design/icons";
+import { LotPlacementBlock } from "./LotPlacementBlock";
 import { Switcher } from "../../components";
+import { createOrderForm, createOrderFormChangeType } from "../../context/market";
+import "./LotPlacement.css";
 
 const options = [{
   value: "buy",
@@ -13,27 +13,24 @@ const options = [{
 }, {
   value: "sell",
   label: "Продать"
-}]
+}];
 
-interface LotPlacementProps {
-  firstCurrency: string;
-  secondCurrency: string;
-}
-
-export const LotPlacement: React.FC = () => {
-  // const { firstCurrency, secondCurrency} = props;
-  const [active, setActive] = useState("buy");
-
-  const handlechange = (value: string) => {
-    setActive(value);
-  }
+export const LotPlacement: FC = () => {
+  const meta = useUnit(createOrderForm.$meta);
 
   return (
     <div className="lot-placement-wrapper">
-      <Switcher options={options} callback={handlechange} active={active} />
+      <Switcher options={options} callback={createOrderFormChangeType} active={meta.type} />
       {/* ниже нужно прокинуть в type и currency из эффектора данные о том что за валюты мы покупаем/продаем */}
-      <LotPlacementBlock type={active as any} currency={active === "buy" ? "RUB" : "EUR"} />
-      <Button size='large' className="lot-placement-create">Создать лот</Button>
+      <LotPlacementBlock />
+      <Button
+        size='large'
+        className="lot-placement-create"
+        disabled={!meta.rate}
+        onClick={createOrderForm.submit}
+      >
+        Создать заявку
+      </Button>
     </div>
   );
 }

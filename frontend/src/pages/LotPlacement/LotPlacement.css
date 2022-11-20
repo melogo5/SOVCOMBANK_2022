@@ -24,3 +24,7 @@
     height: 40px !important;
     border-radius: 5px !important;
 }
+
+.lot-placement-create[disabled] {
+    opacity: 0.5;
+};

@@ -1,3 +1,6 @@
+import { getMarket } from '../service/market.js';
+import { getUser } from '../service/user.js';
+
 const root = "/api/markets/";
 
 const ACTIVE = 'ae2e0148-029b-4206-8676-eb764a24bcb8';
@@ -20,17 +23,30 @@ async function routes(fastify, options) {
     return result.rows;
   });
 
-  fastify.post(root + "select", async (request, reply) => {
+  fastify.post(root + "get", async (request, reply) => {
+    // @ts-ignore
+    const { marketId } = JSON.parse(request.body);
+    // @ts-ignore
+    const market = await getMarket(fastify.pg, marketId);
+    return market;
+  });
+
+  fastify.post(root + "orders", async (request, reply) => {
     // @ts-ignore
     const { marketId, userId } = JSON.parse(request.body);
+
     const query = {
-      name: 'market.select',
-      text: `select market.orders.id, market.orders.name, market.orders.type, market.orders.created from market.orders, market.users WHERE market.orders.market = $1 and market.users.seller != $2 and market.orders.status = '${ACTIVE}' GROUP BY market.orders.id`,
+      name: 'market.orders',
+      text: `select market.orders.id, market.orders.name, market.orders.type, market.orders.created, market.orders.amount, market.orders.rate from market.orders, market.users WHERE market.orders.market = $1 and market.users.seller != $2 and market.orders.status = '${ACTIVE}' GROUP BY market.orders.id`,
       values: [marketId, userId],
     };
     // @ts-ignore
     const result = await fastify.pg.query(query);
-    return result.rows;
+    const orders = result.rows;
+
+    // @ts-ignore
+    const market = await getMarket(fastify.pg, marketId);
+    return orders.map(order => ({ ...order, currency: market.currency }));
   });
 
   fastify.post(root + "create", async (request, reply) => {
@@ -38,24 +54,13 @@ async function routes(fastify, options) {
     const { userId, marketId, type, amount, rate, name } = JSON.parse(request.body);
     console.log({ userId, marketId, type, amount, rate, name });
 
-    const getUser = async () => {
-      const query = {
-        name: 'users.find',
-        text: "SELECT id, name, role FROM users.list WHERE list.id = $1",
-        values: [userId],
-      }
-      // @ts-ignore
-      const result = await fastify.pg.query(query);
-      const user = result.rows[0];
-      return user;
-    }
-
-    const user = await getUser();
+    // @ts-ignore
+    const user = await getUser(fastify.pg, userId);
     if (!user?.id) {
       throw new Error('Пользователь не найден');
     }
 
-    const description = name || type === "ask" ? "Покупка" : "Продажа";
+    const description = name || type === "buy" ? "Покупка" : "Продажа";
     const createOrderQuery = {
       name: 'market.create-order',
       text: "INSERT INTO market.orders(name, type, market, amount, rate) VALUES($1, $2, $3, $4, $5) RETURNING (id)",
