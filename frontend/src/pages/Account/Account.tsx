@@ -3,7 +3,7 @@ import { Button, Typography, Drawer } from 'antd';
 import { useNavigate } from "react-router-dom";
 import type { RadioChangeEvent } from 'antd';
 
-import { SettingOutlined } from "@ant-design/icons";
+import { SettingOutlined, PlusOutlined } from "@ant-design/icons";
 
 import { BoxShadow } from "../../components/BoxShadow/BoxShadow";
 
@@ -77,7 +77,7 @@ export const Account: React.FC = () => {
             </BoxShadow>
             <BoxShadow className="account-change-card">
                 <Button size='large' className="account-card-actions-btn" onClick={() => setCardSelectDrawerOpen(true)}>Выбрать другую карту</Button>
-                <Button size='large' onClick={() => navigate("/cards/append")} className="account-card-actions-btn">Добавить новую карту</Button>
+                <Button size='large' onClick={() => navigate("/cards/append")} className="account-card-actions-btn"><><PlusOutlined />   Добавить новую карту</></Button>
             </BoxShadow>
             <Drawer title="Выберите карту"
                     placement="bottom"

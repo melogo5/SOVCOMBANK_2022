@@ -1,26 +1,30 @@
 import React, { FC, useEffect, useState } from 'react';
-import { LikeOutlined, DislikeOutlined } from '@ant-design/icons';
+import { CreditCardOutlined, UserOutlined } from '@ant-design/icons';
 import { useNavigate } from "react-router-dom";
 import { useUnit } from "effector-react";
-import { Button, Radio } from 'antd';
+import { Radio } from 'antd';
 import { $user } from '../../context/user';
 import { $activeCard, $cards, cardListFx, cardSelectFx } from '../../context/card';
-import { $users, getUsersFx, UserReviewRequest, userReviewFx } from '../../context/admin';
-import { ROLE, ROLE_NAME, IUser } from '../../interfaces';
+import { $users } from '../../context/admin';
+import './CardList.css';
+import { BoxShadow } from '../../components';
 
 const CardList: FC = () => {
   const navigate = useNavigate();
   const [user, users] = useUnit([$user, $users]);
   const [activeCard, cards] = useUnit([$activeCard, $cards]);
 
-  const [selectedCard, setSelectedCard] = useState(0);
-
   const getRadioGroupItems = () => {
     const radioBtns: React.ReactNode[] = [];
     for (const card of cards) {
-        radioBtns.push(<Radio value={card.id}>{<div>{card.cardNumber} {card.cardHolder}</div>}</Radio>)
+        radioBtns.push(<Radio key={card.id} value={card.id}>{
+            <BoxShadow>
+                <div><CreditCardOutlined /> **** {card.cardNumber.split(' ').reverse()[0]}</div>
+                <div><UserOutlined /> Владелец: {card.cardHolder}</div>
+            </BoxShadow>
+            }</Radio>)
     }
-    return <Radio.Group onChange={(e) => cardSelectFx({cardId: e.target.value})} value={activeCard}>
+    return <Radio.Group className='card-list-radioGroup' size="large" onChange={(e) => cardSelectFx({cardId: e.target.value})} value={activeCard}>
         {radioBtns}
     </Radio.Group>
   };

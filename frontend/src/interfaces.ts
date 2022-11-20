@@ -24,5 +24,9 @@ export interface ICard {
   cardHolder: string;
   cardExpireDate: string;
   created: Date;
+
+  cardnumber: string;
+  cardholder: string;
+  cardexpiredate: string;
 }
   

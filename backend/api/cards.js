@@ -72,7 +72,14 @@ async function routes(fastify, options) {
     }
     // @ts-ignore
     const result = await fastify.pg.query(query);
-    return result.rows;
+    return result.rows.map((row) => {
+      return {
+        ...row,
+        cardHolder: row.cardholder,
+        cardExpireDate: row.cardexpiredate,
+        cardNumber: row.cardnumber
+      }
+    });
   });
 
   fastify.post(root + "select", async (request, reply) => {
