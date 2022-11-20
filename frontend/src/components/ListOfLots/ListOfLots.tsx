@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { useUnit } from "effector-react";
-import { $exchange, $exchangeOrders } from "../../context/market";
+import { $exchange, $exchangeOrders, exchangeOrdersFx } from "../../context/market";
 import { ListOfLotsItem } from "./ListOfLotsItem";
 import { BoxShadow } from "../BoxShadow/BoxShadow";
 import { Button, Select, Typography, message, Drawer, Radio, Space } from 'antd';
+import useUserExist from "../../hook/useUserExist";
 
 import "./ListOfLots.css";
 import { useEffect } from "react";
@@ -12,6 +13,7 @@ import api from "../../scripts/api";
 
 export const ListOfLots: React.FC = () => {
     const [exchangeId, exchangeOrders] = useUnit([$exchange, $exchangeOrders]);
+    const user = useUserExist();
     const { Text, Title } = Typography;
     const [open, setOpen] = useState(false);
     const [item, setItem] = useState({
@@ -26,7 +28,6 @@ export const ListOfLots: React.FC = () => {
         setItem(e);
     }
 
-    console.log(item)
 
     const handleOeration = async () => {
         setOpen(false);
@@ -34,6 +35,8 @@ export const ListOfLots: React.FC = () => {
             //@ts-ignore
             id: item.id
         })
+        //@ts-ignore
+        exchangeOrdersFx({ marketId: exchangeId, userId: user.id });
     }
 
     return (
