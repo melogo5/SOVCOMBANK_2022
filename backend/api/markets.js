@@ -41,6 +41,18 @@ async function routes(fastify, options) {
     return { status: 'success', data: result.rows };
   });
 
+  fastify.post("/api/submit/operation", async (request, reply) => {
+    const { id } = JSON.parse(request.body);
+    console.log(id)
+    const query = {
+      name: 'market.orders.delete',
+      text: "DELETE FROM market.orders WHERE id = $1",
+      values: [id]
+    };
+    const result = await fastify.pg.query(query);
+    return { status: 'success', data: result.rows };
+  });
+
   fastify.post(root + "orders", async (request, reply) => {
     // @ts-ignore
     const { marketId, userId } = JSON.parse(request.body);

@@ -3,10 +3,11 @@ import { useUnit } from "effector-react";
 import { $exchange, $exchangeOrders } from "../../context/market";
 import { ListOfLotsItem } from "./ListOfLotsItem";
 import { BoxShadow } from "../BoxShadow/BoxShadow";
-import { Button, Select, Typography, message, Drawer, Radio, Space  } from 'antd';
+import { Button, Select, Typography, message, Drawer, Radio, Space } from 'antd';
 
 import "./ListOfLots.css";
 import { useEffect } from "react";
+import api from "../../scripts/api";
 
 
 export const ListOfLots: React.FC = () => {
@@ -15,7 +16,7 @@ export const ListOfLots: React.FC = () => {
     const [open, setOpen] = useState(false);
     const [item, setItem] = useState({
         amount: 0,
-        currency: [{sign: "P"}, {sign: "E"}],
+        currency: [{ sign: "P" }, { sign: "E" }],
         rate: 0,
         type: ""
     });
@@ -25,14 +26,20 @@ export const ListOfLots: React.FC = () => {
         setItem(e);
     }
 
-    useEffect(() => {
-        console.log(item)
-    }, [item]);
+    console.log(item)
+
+    const handleOeration = async () => {
+        setOpen(false);
+        await api("submit/operation", {
+            //@ts-ignore
+            id: item.id
+        })
+    }
 
     return (
         <div className="list-of-lots-wrapper">
             <BoxShadow>
-                {exchangeOrders && exchangeOrders.map(e => <ListOfLotsItem item={e} onClick={() => handleOpenItem(e)} />)}
+                {exchangeOrders && exchangeOrders.map(e => <ListOfLotsItem key={e.id} item={e} onClick={() => handleOpenItem(e)} />)}
             </BoxShadow>
 
             <Drawer
@@ -43,12 +50,12 @@ export const ListOfLots: React.FC = () => {
                 open={open}
             >
                 {/* <ListOfLotsItem item={item} onClick={() => {}} /> */}
-                
-                <Title>{`Покупка ${item.amount} ${item.currency[item.type === "buy" ? 1: 0].sign}`}</Title>
-                <Text>{`По курсу ${item.rate.toFixed(3)} ${item.currency[item.type === "buy" ? 0: 1].sign} / ${item.currency[item.type === "buy" ? 1: 0].sign}`}</Text>
-                <br/>
+
+                <Title>{`Покупка ${item.amount} ${item.currency[item.type === "buy" ? 1 : 0].sign}`}</Title>
+                <Text>{`По курсу ${item.rate.toFixed(3)} ${item.currency[item.type === "buy" ? 0 : 1].sign} / ${item.currency[item.type === "buy" ? 1 : 0].sign}`}</Text>
+                <br />
                 <Text>{`Вы заплатите ${+(item.rate * item.amount).toFixed(3)} ${item.currency[item.type === "buy" ? 0 : 1].sign}`}</Text>
-                <Button onClick={() => setOpen(false)} className="list-items-drawer-btn">Подтвердить</Button>
+                <Button onClick={handleOeration} className="list-items-drawer-btn">Подтвердить</Button>
             </Drawer>
         </div>
     );
