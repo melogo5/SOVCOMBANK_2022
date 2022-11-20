@@ -31,13 +31,35 @@ async function routes(fastify, options) {
     return market;
   });
 
+  fastify.post(root + "currencyList", async (request, reply) => {
+    const query = {
+      name: 'market.currencyList',
+      text: "SELECT * FROM market.currency",
+    }
+    // @ts-ignore
+    const result = await fastify.pg.query(query);
+    return { status: 'success', data: result.rows };
+  });
+
+  fastify.post("/api/submit/operation", async (request, reply) => {
+    const { id } = JSON.parse(request.body);
+    console.log(id)
+    const query = {
+      name: 'market.orders.delete',
+      text: "DELETE FROM market.orders WHERE id = $1",
+      values: [id]
+    };
+    const result = await fastify.pg.query(query);
+    return { status: 'success', data: result.rows };
+  });
+
   fastify.post(root + "orders", async (request, reply) => {
     // @ts-ignore
     const { marketId, userId } = JSON.parse(request.body);
 
     const query = {
       name: 'market.orders',
-      text: `select market.orders.id, market.orders.name, market.orders.type, market.orders.created, market.orders.amount, market.orders.rate from market.orders, market.users WHERE market.orders.market = $1 and market.users.seller != $2 and market.orders.status = '${ACTIVE}' GROUP BY market.orders.id`,
+      text: `select market.orders.id, market.orders.name, market.orders.type, market.orders.created, market.orders.secondamount, market.orders.amount, market.orders.rate from market.orders, market.users WHERE market.orders.market = $1 and market.users.seller != $2 and market.orders.status = '${ACTIVE}' GROUP BY market.orders.id`,
       values: [marketId, userId],
     };
     // @ts-ignore

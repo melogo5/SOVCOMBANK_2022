@@ -2,6 +2,7 @@ import { sample } from "effector";
 
 import {
   $user,
+  $userBalance,
 
   registrationForm,
   registrationFormSubmit,
@@ -15,7 +16,8 @@ import {
   userReviewFx,
 
   getUsers,
-  getUsersFx
+  getUsersFx,
+  changebalanceFx
 } from "./model";
 
 // register
@@ -64,4 +66,14 @@ sample({
     return clock;
   },
   target: getUsersFx
+});
+
+// changeBalance
+sample({
+  clock: changebalanceFx.doneData,
+  fn: (result) => {
+    console.log(result);
+    return result.balance;
+  },
+  target: $userBalance
 });

@@ -4,6 +4,9 @@ import api from "../../scripts/api";
 import { UserDescriptor } from "./types";
 
 export const $user = createStore<UserDescriptor | null>(null);
+export const $userBalance  = $user.map(user => {
+    return user && user.balance || 0;
+});
 
 // register
 export const registrationForm = createForm();
@@ -24,3 +27,7 @@ export const userReviewFx = createEffect((values: any) => api("users/review", va
 // getUsers
 export const getUsers = createEvent<any>();
 export const getUsersFx = createEffect((values: any) => api("users/review", values));
+
+// getUsers
+export const getBalanceFx = createEffect((values: any) => api("users/balanceGet", values));
+export const changebalanceFx = createEffect((values: any) => api("users/balanceChange", values));

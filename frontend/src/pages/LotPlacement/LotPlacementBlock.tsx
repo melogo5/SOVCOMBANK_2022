@@ -26,7 +26,7 @@ export const LotPlacementBlock: FC<LotPlacementBlockProps> = props => {
   const [from, to] = meta.type === "buy"
     ? [signs[1], signs[0]]
     : [signs[0], signs[1]];
-
+    
   return (
     <BoxShadow>
       <div>

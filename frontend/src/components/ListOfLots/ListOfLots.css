@@ -3,10 +3,18 @@
 }
 
 .list-of-lots-item {
-
+    border: 1px solid lightgrey;
+    padding: 10px;
 }
 
 .lot-item-amount {
     display: flex;
-    justify-content: end;
+    justify-content: space-between;
+}
+
+.list-items-drawer-btn {
+    background-color: rgb(23, 138, 23) !important;
+    color: white !important;
+    width: 100%;
+    margin-top: 70px;
 }

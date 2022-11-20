@@ -2,9 +2,10 @@ import { createEffect, createStore, createEvent } from "effector";
 import { createForm } from "effector-react-form";
 import api from "../../scripts/api";
 import { ListOptions, ListService } from "../types";
-import { LoadOrdersRequest } from "./types";
+import { ICurrency, LoadOrdersRequest } from "./types";
 
 export const $markets = createStore<ListOptions>([]);
+export const $currencyList = createStore<ICurrency[]>([]);
 
 export const loadMarketsFx = createEffect<void, ListService>(() => api("markets/list"));
 
@@ -21,9 +22,10 @@ export const createOrderFx = createEffect<any, any>(request => api("markets/crea
 export const createOrderForm = createForm({
   name: "form-create-order",
   onSubmit: ({ values, meta }) => {
+    console.log('meta', values, meta)
     const { userId, marketId, type, rate } = meta;
     const amount = values.from;
-    createOrderFx({ userId, marketId, type, rate, amount });
+    createOrderFx({ userId, marketId, type, rate, amount, secondamount: values.to }); //currency
   },
   initialMeta: {
     type: "buy",
@@ -32,5 +34,7 @@ export const createOrderForm = createForm({
     rate: 0
   }
 });
+
+export const currencyListFx = createEffect<any, any>(() => api("markets/currencyList"));
 
 export const createOrderFormChangeType = createEvent<"buy" | "sell">();

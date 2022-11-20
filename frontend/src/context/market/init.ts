@@ -13,7 +13,10 @@ import {
 
   createOrderForm,
   createOrderFormChangeType,
-  createOrderFx
+  createOrderFx,
+
+  currencyListFx,
+  $currencyList
 } from "./model";
 
 sample({
@@ -61,7 +64,8 @@ sample({
   source: { values: createOrderForm.$values, meta: createOrderForm.$meta },
   filter: ({ values }, clock) => values.from > 0 && values.to > 0,
   fn: ({ values, meta }, clock) => {
-    const rate = (values.from / values.to);
+    console.log(meta)
+    const rate = (values.to / values.from);
     return { ...meta, rate };
   },
   target: createOrderForm.$meta
@@ -108,3 +112,12 @@ sample({
 //   fn: ({ params }) => params, // { marketId, userId }
 //   target: exchangeOrdersFx
 // });
+
+// Список валюты
+sample({
+  clock: currencyListFx.doneData,
+  fn: (result) => {
+    return result.data;
+  },
+  target: $currencyList
+});

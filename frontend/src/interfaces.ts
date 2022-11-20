@@ -16,6 +16,7 @@ export interface IUser {
   name: string;
   id: string;
   role: typeof ROLE.PERSON | typeof ROLE.USER | typeof ROLE.ADMIN;
+  balance: number;
 }
 
 export interface ICard {

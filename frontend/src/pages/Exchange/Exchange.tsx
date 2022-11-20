@@ -6,6 +6,9 @@ import { $exchange, $exchangeOrders } from "../../context/market";
 const Exchange: FC = () => {
   const [exchangeId, exchangeOrders] = useUnit([$exchange, $exchangeOrders]);
 
+
+  console.log(exchangeId, exchangeOrders)
+
   if (!exchangeId) return null;
   return (
     <>

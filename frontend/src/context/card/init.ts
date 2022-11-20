@@ -37,6 +37,9 @@ sample({
 
 sample({
   clock: cardSelectFx.doneData,
-  fn: (result) => result,
+  fn: (result) => {
+    console.log(result);
+    return result.card;
+  },
   target: $activeCard
 });

@@ -3,7 +3,7 @@ export interface UserDescriptor {
   id: string;
   email: string;
   phone: string;
-
+  balance: number;
   user?: boolean;
   admin?: boolean;
 }
