@@ -21,9 +21,10 @@ export const createOrderFx = createEffect<any, any>(request => api("markets/crea
 export const createOrderForm = createForm({
   name: "form-create-order",
   onSubmit: ({ values, meta }) => {
+    console.log('meta', values, meta)
     const { userId, marketId, type, rate } = meta;
     const amount = values.from;
-    createOrderFx({ userId, marketId, type, rate, amount });
+    createOrderFx({ userId, marketId, type, rate, amount, secondamount: values.to }); //currency
   },
   initialMeta: {
     type: "buy",

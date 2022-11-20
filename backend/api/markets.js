@@ -37,7 +37,7 @@ async function routes(fastify, options) {
 
     const query = {
       name: 'market.orders',
-      text: `select market.orders.id, market.orders.name, market.orders.type, market.orders.created, market.orders.amount, market.orders.rate from market.orders, market.users WHERE market.orders.market = $1 and market.users.seller != $2 and market.orders.status = '${ACTIVE}' GROUP BY market.orders.id`,
+      text: `select market.orders.id, market.orders.name, market.orders.type, market.orders.created, market.orders.secondamount, market.orders.amount, market.orders.rate from market.orders, market.users WHERE market.orders.market = $1 and market.users.seller != $2 and market.orders.status = '${ACTIVE}' GROUP BY market.orders.id`,
       values: [marketId, userId],
     };
     // @ts-ignore

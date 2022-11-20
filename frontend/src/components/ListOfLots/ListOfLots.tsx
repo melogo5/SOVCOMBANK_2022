@@ -1,26 +1,19 @@
 import React from "react";
+import { useUnit } from "effector-react";
+import { $exchange, $exchangeOrders } from "../../context/market";
+import { ListOfLotsItem } from "./ListOfLotsItem";
 import { BoxShadow } from "../BoxShadow/BoxShadow";
 
 import "./ListOfLots.css";
 
-const items = [{
-    amount: 3000,
-    currency: "EUR",
-    pricePerOne: 66,
-    total: 198000
-}, {
-    amount: 400,
-    currency: "EUR",
-    pricePerOne: 68,
-    total: 27200
-}]
 
 export const ListOfLots: React.FC = () => {
+    const [exchangeId, exchangeOrders] = useUnit([$exchange, $exchangeOrders]);
 
     return (
         <div className="list-of-lots-wrapper">
             <BoxShadow>
-
+                {exchangeOrders && exchangeOrders.map(e => <ListOfLotsItem item={e} />)}
             </BoxShadow>
         </div>
     );

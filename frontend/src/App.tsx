@@ -38,6 +38,7 @@ const App: FC = () => {
               <p><Link to={"/market"}>Market</Link></p>
               <p><Link to={"/profile"}>Profile</Link></p>
               <p><Link to={"/cardOrder"}>Card Ordering</Link></p>
+              <p><Link to={"/admin-panel"}>ap</Link></p>
 
               {/* {user !== null && (
                 <Navigate to="/dashboard" replace={true} />

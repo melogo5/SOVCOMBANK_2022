@@ -10,6 +10,7 @@ import { BoxShadow } from "../../components";
 import useUserExist from "../../hook/useUserExist";
 import { $markets, loadMarketsFx, exchangeSelect, $exchange } from "../../context/market";
 import Exchange from "../Exchange/Exchange";
+import { ListOfLots } from "../../components/ListOfLots/ListOfLots";
 
 export const Market: React.FC = () => {
   const user = useUserExist();
@@ -39,7 +40,8 @@ export const Market: React.FC = () => {
         </Button>
       </BoxShadow>
 
-      <Exchange />
+      {/* <Exchange /> */}
+      <ListOfLots />
     </div>
   );
 }

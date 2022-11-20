@@ -60,7 +60,8 @@ sample({
   source: { values: createOrderForm.$values, meta: createOrderForm.$meta },
   filter: ({ values }, clock) => values.from > 0 && values.to > 0,
   fn: ({ values, meta }, clock) => {
-    const rate = (values.from / values.to);
+    console.log(meta)
+    const rate = (values.to / values.from);
     return { ...meta, rate };
   },
   target: createOrderForm.$meta
