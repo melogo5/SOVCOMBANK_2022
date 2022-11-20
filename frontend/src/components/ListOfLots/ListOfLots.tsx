@@ -45,8 +45,9 @@ export const ListOfLots: React.FC = () => {
                 {/* <ListOfLotsItem item={item} onClick={() => {}} /> */}
                 
                 <Title>{`Покупка ${item.amount} ${item.currency[item.type === "buy" ? 1: 0].sign}`}</Title>
-                <Text>{`По курсу ${item.rate} ${item.currency[item.type === "buy" ? 0: 1].sign} / ${item.currency[item.type === "buy" ? 1: 0].sign}`}</Text>
-                <Text>{`Вы заплатите ${item.rate * item.amount} ${item.currency[item.type === "buy" ? 0 : 1].sign}`}</Text>
+                <Text>{`По курсу ${item.rate.toFixed(3)} ${item.currency[item.type === "buy" ? 0: 1].sign} / ${item.currency[item.type === "buy" ? 1: 0].sign}`}</Text>
+                <br/>
+                <Text>{`Вы заплатите ${+(item.rate * item.amount).toFixed(3)} ${item.currency[item.type === "buy" ? 0 : 1].sign}`}</Text>
                 <Button onClick={() => setOpen(false)} className="list-items-drawer-btn">Подтвердить</Button>
             </Drawer>
         </div>
