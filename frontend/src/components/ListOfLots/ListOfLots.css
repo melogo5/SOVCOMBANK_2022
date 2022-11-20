@@ -11,3 +11,10 @@
     display: flex;
     justify-content: space-between;
 }
+
+.list-items-drawer-btn {
+    background-color: rgb(23, 138, 23) !important;
+    color: white !important;
+    width: 100%;
+    margin-top: 70px;
+}
