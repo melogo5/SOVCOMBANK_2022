@@ -1,3 +1,5 @@
+import { getBalance } from '../service/user.js';
+
 const root = "/api/users/";
 
 const PERSON = "de2e0148-029b-4206-8676-eb764a24bcb8";
@@ -16,7 +18,7 @@ async function routes(fastify, options) {
 
     const query = {
       name: 'users.login',
-      text: "SELECT id, name, role FROM users.list WHERE list.name = $1 and list.password = $2",
+      text: "SELECT id, name, role, email, phone, balance FROM users.list WHERE list.name = $1 and list.password = $2",
       values: [login, password],
     }
 
@@ -27,7 +29,16 @@ async function routes(fastify, options) {
     if (!user?.id) {
       throw new Error('Пользователь не найден');
     } else {
-      return { status: "success", id: user.id, name: user.name, user: user.role === USER, admin: user.role === ADMIN };
+      return {
+        status: "success",
+        id: user.id,
+        name: user.name,
+        user: user.role === USER,
+        admin: user.role === ADMIN,
+        email: user.email,
+        phone: user.phone,
+        balance: user.balance ?? 0
+      };
     }
 
   });
@@ -95,6 +106,33 @@ async function routes(fastify, options) {
     // @ts-ignore
     const result = await fastify.pg.query(list);
     return { status: 'success', data: result.rows };
+  });
+
+  fastify.post(root + "balanceGet", async (request, reply) => {
+    // @ts-ignore
+    const { userId } = JSON.parse(request.body);
+    query = {
+      name: 'users.balance.get',
+      text: 'SELECT balance FROM users.list WHERE id = $1',
+      values: [userId]
+    }
+    const balance = await getBalance(fastify.pg, userId);
+    return { status: 'success', data: balance };
+  });
+
+  fastify.post(root + "balanceChange", async (request, reply) => {
+    // @ts-ignore
+    const { userId, delta } = JSON.parse(request.body);
+    const balance = await getBalance(fastify.pg, userId);
+    const newBalance = Number(balance) + Number(delta);
+    const query = {
+      name: 'users.balance.change',
+      text: 'UPDATE users.list SET balance = $1 WHERE id = $2',
+      values: [newBalance, userId]
+    }
+    console.log(newBalance, userId);
+    const result = await fastify.pg.query(query);
+    return { status: 'success', data: result.rows, balance: newBalance };
   });
 }
 

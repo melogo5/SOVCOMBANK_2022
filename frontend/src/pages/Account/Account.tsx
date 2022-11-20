@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { Button, Typography, Drawer } from 'antd';
 import { useNavigate } from "react-router-dom";
 import type { RadioChangeEvent } from 'antd';
@@ -13,6 +13,7 @@ import { $activeCard } from '../../context/card';
 import CardList from "../CardList/CardList";
 import { useUnit } from "effector-react";
 import { CardView } from "../../components/CardView/CardView";
+import { $user, $userBalance, changebalanceFx, getBalanceFx } from "../../context/user";
 
 const CURRENCIES = {
     ["RUB"]: "₽",
@@ -21,6 +22,8 @@ const CURRENCIES = {
 
 export const Account: React.FC = () => {
     const { Text, Title } = Typography;
+    const user = useUnit($user);
+    const userBalance = useUnit($userBalance);
     const activeCard = useUnit($activeCard);
     const [value, setValue] = useState('RUB');
     const [cardSelectDrawerOpen, setCardSelectDrawerOpen] = useState(false);
@@ -37,10 +40,9 @@ export const Account: React.FC = () => {
         secondTotal: 1890
     }
 
-    
-    const total = useMemo(() => {
-        return value === "RUB" ? data.total : data.secondTotal;
-    }, [value]);
+    useEffect(() => {
+        getBalanceFx({userId: user && user.id});
+    }, []);
 
     const options = useMemo(() => {
         return [
@@ -54,6 +56,15 @@ export const Account: React.FC = () => {
         setValue(value);
     };
 
+    const changeBalance = () => {
+        // @ts-ignore
+        const delta = Math.random() * 1000;
+        changebalanceFx({
+            userId: user && user.id,
+            delta
+        });
+    };
+
     return (
         <div className="account-wrapper">
             <BoxShadow>
@@ -64,7 +75,7 @@ export const Account: React.FC = () => {
                     Баланс
                 </Title>
                 <Title className="account-amount">
-                    {`${total} ${CURRENCIES[value]} `}
+                    {`${( user && user.id ? userBalance ? userBalance : user.balance : 1000)} ${CURRENCIES[value]} `}
                 </Title>
             </BoxShadow>
             <BoxShadow>
@@ -79,8 +90,8 @@ export const Account: React.FC = () => {
                     </Title>)}
                 </div>
                 <div className="account-card-actions">
-                    <Button size='large' className="account-card-actions-btn card-btn-in">Пополнить с этой карты</Button>
-                    <Button size='large' className="account-card-actions-btn card-btn-out">Вывести на эту карту</Button>
+                    <Button size='large' onClick={changeBalance} className="account-card-actions-btn card-btn-in">Пополнить с этой карты</Button>
+                    <Button size='large' onClick={changeBalance} className="account-card-actions-btn card-btn-out">Вывести на эту карту</Button>
                 </div>
             </BoxShadow>
             <BoxShadow className="account-change-card">

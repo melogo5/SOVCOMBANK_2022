@@ -11,24 +11,9 @@ import { useUnit } from "effector-react";
 import { $currencyList, currencyListFx } from "../../context/market";
 import { $activeCard } from "../../context/card";
 
-const countries = [{
-    id: "DE",
-    label: "Германия"
-}, {
-    id: "VNM",
-    label: "Вьетнам"
-}, {
-    id: "THA",
-    label: "Таиланд"
-}];
-
 export const CardOrder: React.FC = () => {
     const [currencyList, activeCard] = useUnit([$currencyList, $activeCard]);
     const [country, setCountry] = useState(currencyList[0]);
-    const items: MenuProps['items'] = countries.map(e => ({
-        label: e.label,
-        key: e.id
-    }));
 
     useEffect(() => {
         currencyListFx({});
@@ -40,16 +25,6 @@ export const CardOrder: React.FC = () => {
     const handleMenuClick = (e: any) => {
         setCountry(currencyList.find(c => c.id === e.key) as any)
     }
-
-    const menuProps = {
-        items: currencyList.map((currency) => {
-            return {
-                key: currency.id,
-                label: currency.country
-            }
-        }),
-        onClick: handleMenuClick,
-    };
 
     return (
         <div className="card-order-wrapper">
